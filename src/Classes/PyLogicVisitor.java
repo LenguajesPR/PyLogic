@@ -2,7 +2,6 @@ package Classes;
 
 import Classes.PyLogic3Parser.*;
 import java.util.*;
-import org.antlr.v4.runtime.tree.*;
 import Tools.*;
 
 public class PyLogicVisitor<T> extends PyLogic3BaseVisitor<Node>  {
@@ -120,6 +119,7 @@ public class PyLogicVisitor<T> extends PyLogic3BaseVisitor<Node>  {
                     if(l.validar(tablas, valor)){
                         
                     }
+                    System.out.println("hola");
                     
                }
             }
