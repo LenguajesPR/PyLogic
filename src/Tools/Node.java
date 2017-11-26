@@ -65,6 +65,14 @@ public class Node {
         }*/
     }
 
+    public int getTipo() {
+        return Tipo;
+    }
+
+    public void setTipo(int Tipo) {
+        this.Tipo = Tipo;
+    }
+
     public int getFila() {
         return fila;
     }
