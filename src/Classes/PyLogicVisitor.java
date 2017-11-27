@@ -3,13 +3,14 @@ package Classes;
 import Classes.PyLogic3Parser.*;
 import java.util.*;
 import Tools.*;
+import java.math.*;
 
 public class PyLogicVisitor<T> extends PyLogic3BaseVisitor<Node>  {
     static final int ID =1,ENTERO=2,FLOAT=3,IMAG=4,BINARIO=5,HEXA=6,OCTAL=7,TRUE=8,FALSE=9,STRING=10,BITS=11,NONE=12;
     
     LinkedList<HashMap<Object,Object> > tablas = new LinkedList<>();
     HashMap<Object, Object> table = new HashMap<>();
-    HashMap<Object, Object> temp = new HashMap<>();
+    HashMap<Object, Object> temp;
     
     public void init(){
         tablas.add(table);
@@ -79,8 +80,6 @@ public class PyLogicVisitor<T> extends PyLogic3BaseVisitor<Node>  {
                 listaTestList.add(visitTestlist_star_expr(ctx.testlist_star_expr(i)));
             }
             table.put(nombre, valor);
-            System.out.println(nombre);
-            System.out.println(valor);
         }
         
         //System.out.println(ctx.getText());
@@ -114,11 +113,80 @@ public class PyLogicVisitor<T> extends PyLogic3BaseVisitor<Node>  {
     @Override
     public Node visitIf_stmt(If_stmtContext ctx){
         Node aux = null;
-        temp.clear();
-        tablas.add(temp);
+        boolean Else = true;
+        //System.out.println(ctx.test().size());
         for (int i = 0; i < ctx.test().size() ; i++) {
-            
+            Check aux2 = new Check();
+            Node nodo = visitTest(ctx.test(i));
+            try{
+                if((Boolean)aux2.checkType(tablas, nodo)){
+                    visitSuite(ctx.suite(i));
+                    Else = false;
+                    break;
+                }
+            }catch(Exception e){
+                System.err.printf("<%i,%i>ERROR:::La variable %s no ha sido declarada",nodo.getFila(),nodo.getColumna(),nodo.getDatos());
+                System.exit(0);
+            }
+        }if(ctx.ELSE() != null && Else){
+            visitSuite(ctx.suite(ctx.suite().size()-1));
         }
+        return aux;
+    }
+    
+    @Override
+    public Node visitWhile_stmt(While_stmtContext ctx){
+        Node aux = null;
+        Check aux2 = new Check();
+        Node nodo = visitTest(ctx.test());
+        try {
+            if ((Boolean) aux2.checkType(tablas, nodo)) {
+                visitSuite(ctx.suite(0));
+            }
+        } catch (Exception e) {
+            System.err.printf("<%i,%i>ERROR:::La variable %s no ha sido declarada", nodo.getFila(), nodo.getColumna(), nodo.getDatos());
+            System.exit(0);
+        }if(ctx.ELSE() != null){
+            visitSuite(ctx.suite(1));
+        }
+        return aux;
+    }
+    
+    @Override
+    public Node visitFor_stmt(For_stmtContext ctx){
+        Node aux = null;
+        Check val = new Check();
+        Node exprlist = visitExprlist(ctx.exprlist());
+        Node testlist = visitTestlist(ctx.testlist());
+        if(exprlist.getTipo() == ID && testlist.getTipo() == ENTERO){
+            int index;
+            for (int i = 0; i < Integer.parseInt(testlist.getDatos()); i++) {
+                index = val.exist(tablas, exprlist);
+                if (index != -1) {
+                    aux = (Node) tablas.get(index).get(exprlist);
+                    aux.setDatos(String.valueOf(i));
+                    aux.setTipo(ENTERO);
+                } else {
+                    tablas.get(tablas.size() - 1).put(exprlist, testlist);
+                }visitSuite(ctx.suite(0));
+            }
+        }if(ctx.ELSE() != null){
+            visitSuite(ctx.suite(1));
+        }
+        return aux;
+    }
+    
+    @Override
+    public Node visitSuite(SuiteContext ctx){
+        Node aux = null;
+        tablas.add(new HashMap<>());
+        if(ctx.simple_stmt() != null){
+            visitSimple_stmt(ctx.simple_stmt());
+        }else{
+            for (int i = 0; i < ctx.stmt().size(); i++) {
+                visitStmt(ctx.stmt(i));
+            }
+        }tablas.remove(tablas.size()-1);
         return aux;
     }
     
@@ -146,17 +214,37 @@ public class PyLogicVisitor<T> extends PyLogic3BaseVisitor<Node>  {
             if (potencia.getTipo() != ENTERO && potencia.getTipo() != FLOAT && potencia.getTipo()!= ID){
                 // ERROR DE TIPOS
             }else{
-                if(valor.getTipo() != ENTERO && valor.getTipo() != FLOAT && potencia.getTipo()!= ID){
+                if(valor.getTipo() != ENTERO && valor.getTipo() != FLOAT && valor.getTipo()!= ID){
                     // error tipos
                 }else{
-                    Check l = new Check();
-                    if(l.validar(tablas, valor)){
-                        
+                    Check l = new Check(); 
+                    Node b = null;
+                    Node p = null;
+                    if(valor.getTipo() == ID){
+                        b = ((Node)l.validar(tablas, valor));
+                    }else{
+                        b = valor;
                     }
-                    System.out.println("hola");
-                    
-               }
+                    if(potencia.getTipo() == ID){
+                        p = ((Node)l.validar(tablas, valor));
+                    }else{
+                        p = potencia;
+                    }
+                    if(b != null && p != null){
+                        double b1 = Double.parseDouble(b.getDatos());
+                        double p1 = Double.parseDouble(p.getDatos());
+                        double total = Math.pow(b1, p1);
+                        String T = String.valueOf(total);
+                        valor.setDatos(T);
+                    }else{
+                        //error
+                        valor = null;
+                    }
+                    return valor;
+                }
             }
+        }else{
+            return valor;
         }
         return  visitChildren(ctx);
     }
@@ -248,15 +336,19 @@ public class PyLogicVisitor<T> extends PyLogic3BaseVisitor<Node>  {
     @Override 
     public Node visitInteger(IntegerContext ctx){
         Node aux = null;
+        Check l = new Check();
         LinkedList<Node> aux2 = new LinkedList<Node>();
         if (ctx.BIN_INTEGER() != null){
-            aux = new Node(ctx.BIN_INTEGER(), BINARIO);
+            aux = new Node(ctx.BIN_INTEGER(), ENTERO);
+            aux.setDatos(String.valueOf(l.integer(aux.getDatos())));
         }else if(ctx.DECIMAL_INTEGER() != null){
             aux = new Node (ctx.DECIMAL_INTEGER(), ENTERO);
         }else if (ctx.HEX_INTEGER() != null){
-            aux = new Node(ctx.HEX_INTEGER(), HEXA);
+            aux = new Node(ctx.HEX_INTEGER(), ENTERO);
+            aux.setDatos(String.valueOf(l.integer(aux.getDatos())));
         }else if(ctx.OCT_INTEGER() != null){
-            aux = new Node (ctx.OCT_INTEGER(), OCTAL);
+            aux = new Node (ctx.OCT_INTEGER(), ENTERO);
+            aux.setDatos(String.valueOf(l.integer(aux.getDatos())));
         }
         return aux;
     }

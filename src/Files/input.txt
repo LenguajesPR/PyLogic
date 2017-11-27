@@ -1,3 +1,6 @@
-a=15
-print(a)
-
+if 15:
+    a=15
+elif 10.5:
+    b=45
+elif "asdsadasd":
+    c=15
