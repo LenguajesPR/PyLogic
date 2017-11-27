@@ -18,13 +18,7 @@ public class Node {
         this.datos = datos;
     }
 
-    public int getTipo() {
-        return Tipo;
-    }
-
-    public void setTipo(int Tipo) {
-        this.Tipo = Tipo;
-    }
+    
 
     public Node(TerminalNode nodo, int tipo) {
         this.fila = nodo.getSymbol().getLine();
@@ -89,6 +83,14 @@ public class Node {
         this.columna = columna;
     }
 
+    public int getTipo() {
+        return Tipo;
+    }
+
+    public void setTipo(int Tipo) {
+        this.Tipo = Tipo;
+    }
+    
     public String getDatos() {
         return datos;
     }

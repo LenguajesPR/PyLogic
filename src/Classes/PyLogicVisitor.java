@@ -3,6 +3,7 @@ package Classes;
 import Classes.PyLogic3Parser.*;
 import java.util.*;
 import Tools.*;
+import java.math.*;
 
 public class PyLogicVisitor<T> extends PyLogic3BaseVisitor<Node>  {
     static final int ID =1,ENTERO=2,FLOAT=3,IMAG=4,BINARIO=5,HEXA=6,OCTAL=7,TRUE=8,FALSE=9,STRING=10,BITS=11,NONE=12;
@@ -112,17 +113,37 @@ public class PyLogicVisitor<T> extends PyLogic3BaseVisitor<Node>  {
             if (potencia.getTipo() != ENTERO && potencia.getTipo() != FLOAT && potencia.getTipo()!= ID){
                 // ERROR DE TIPOS
             }else{
-                if(valor.getTipo() != ENTERO && valor.getTipo() != FLOAT && potencia.getTipo()!= ID){
+                if(valor.getTipo() != ENTERO && valor.getTipo() != FLOAT && valor.getTipo()!= ID){
                     // error tipos
                 }else{
-                    Check l = new Check();
-                    if(l.validar(tablas, valor)){
-                        
+                    Check l = new Check(); 
+                    Node b = null;
+                    Node p = null;
+                    if(valor.getTipo() == ID){
+                        b = ((Node)l.validar(tablas, valor));
+                    }else{
+                        b = valor;
                     }
-                    System.out.println("hola");
-                    
-               }
+                    if(potencia.getTipo() == ID){
+                        p = ((Node)l.validar(tablas, valor));
+                    }else{
+                        p = potencia;
+                    }
+                    if(b != null && p != null){
+                        double b1 = Double.parseDouble(b.getDatos());
+                        double p1 = Double.parseDouble(p.getDatos());
+                        double total = Math.pow(b1, p1);
+                        String T = String.valueOf(total);
+                        valor.setDatos(T);
+                    }else{
+                        //error
+                        valor = null;
+                    }
+                    return valor;
+                }
             }
+        }else{
+            return valor;
         }
         return  visitChildren(ctx);
     }
