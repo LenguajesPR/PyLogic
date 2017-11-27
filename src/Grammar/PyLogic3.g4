@@ -652,11 +652,11 @@ rules
  ;
 
 consult
- : CONSULT '(' expr_stmt (( AND | OR ) expr_stmt )* ')'
+ : CONSULT '(' test (( AND | OR ) test )* ')'
  ;
 
 log_line
- : '(' expr_stmt ( ',' expr_stmt)* ')'
+ : '(' test ( ',' test )* ')'
  | NEWLINE
  ;
 

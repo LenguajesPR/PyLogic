@@ -1759,11 +1759,8 @@ public class PyLogic3Parser extends Parser {
 				}
 				}
 				break;
-			case OR:
-			case AND:
 			case NEWLINE:
 			case CLOSE_PAREN:
-			case COMMA:
 			case SEMI_COLON:
 			case ASSIGN:
 				{
@@ -1871,6 +1868,7 @@ public class PyLogic3Parser extends Parser {
 	public final Testlist_star_exprContext testlist_star_expr() throws RecognitionException {
 		Testlist_star_exprContext _localctx = new Testlist_star_exprContext(_ctx, getState());
 		enterRule(_localctx, 32, RULE_testlist_star_expr);
+		int _la;
 		try {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
@@ -1925,14 +1923,14 @@ public class PyLogic3Parser extends Parser {
 			}
 			setState(445);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,50,_ctx) ) {
-			case 1:
+			_la = _input.LA(1);
+			if (_la==COMMA) {
 				{
 				setState(444);
 				match(COMMA);
 				}
-				break;
 			}
+
 			}
 		}
 		catch (RecognitionException re) {
@@ -5742,6 +5740,7 @@ public class PyLogic3Parser extends Parser {
 	public final TestlistContext testlist() throws RecognitionException {
 		TestlistContext _localctx = new TestlistContext(_ctx, getState());
 		enterRule(_localctx, 142, RULE_testlist);
+		int _la;
 		try {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
@@ -5768,14 +5767,14 @@ public class PyLogic3Parser extends Parser {
 			}
 			setState(946);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,127,_ctx) ) {
-			case 1:
+			_la = _input.LA(1);
+			if (_la==COMMA) {
 				{
 				setState(945);
 				match(COMMA);
 				}
-				break;
 			}
+
 			}
 		}
 		catch (RecognitionException re) {
@@ -6700,11 +6699,11 @@ public class PyLogic3Parser extends Parser {
 
 	public static class ConsultContext extends ParserRuleContext {
 		public TerminalNode CONSULT() { return getToken(PyLogic3Parser.CONSULT, 0); }
-		public List<Expr_stmtContext> expr_stmt() {
-			return getRuleContexts(Expr_stmtContext.class);
+		public List<TestContext> test() {
+			return getRuleContexts(TestContext.class);
 		}
-		public Expr_stmtContext expr_stmt(int i) {
-			return getRuleContext(Expr_stmtContext.class,i);
+		public TestContext test(int i) {
+			return getRuleContext(TestContext.class,i);
 		}
 		public List<TerminalNode> AND() { return getTokens(PyLogic3Parser.AND); }
 		public TerminalNode AND(int i) {
@@ -6737,7 +6736,7 @@ public class PyLogic3Parser extends Parser {
 			setState(1092);
 			match(OPEN_PAREN);
 			setState(1093);
-			expr_stmt();
+			test();
 			setState(1098);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
@@ -6755,7 +6754,7 @@ public class PyLogic3Parser extends Parser {
 					consume();
 				}
 				setState(1095);
-				expr_stmt();
+				test();
 				}
 				}
 				setState(1100);
@@ -6778,11 +6777,11 @@ public class PyLogic3Parser extends Parser {
 	}
 
 	public static class Log_lineContext extends ParserRuleContext {
-		public List<Expr_stmtContext> expr_stmt() {
-			return getRuleContexts(Expr_stmtContext.class);
+		public List<TestContext> test() {
+			return getRuleContexts(TestContext.class);
 		}
-		public Expr_stmtContext expr_stmt(int i) {
-			return getRuleContext(Expr_stmtContext.class,i);
+		public TestContext test(int i) {
+			return getRuleContext(TestContext.class,i);
 		}
 		public TerminalNode NEWLINE() { return getToken(PyLogic3Parser.NEWLINE, 0); }
 		public Log_lineContext(ParserRuleContext parent, int invokingState) {
@@ -6810,7 +6809,7 @@ public class PyLogic3Parser extends Parser {
 				setState(1103);
 				match(OPEN_PAREN);
 				setState(1104);
-				expr_stmt();
+				test();
 				setState(1109);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
@@ -6820,7 +6819,7 @@ public class PyLogic3Parser extends Parser {
 					setState(1105);
 					match(COMMA);
 					setState(1106);
-					expr_stmt();
+					test();
 					}
 					}
 					setState(1111);
@@ -7421,11 +7420,11 @@ public class PyLogic3Parser extends Parser {
 		"\t\2\u043b\u043c\78\2\2\u043c\u043d\7(\2\2\u043d\u043f\7c\2\2\u043e\u0440"+
 		"\5\u00acW\2\u043f\u043e\3\2\2\2\u0440\u0441\3\2\2\2\u0441\u043f\3\2\2"+
 		"\2\u0441\u0442\3\2\2\2\u0442\u0443\3\2\2\2\u0443\u0444\7d\2\2\u0444\u00a9"+
-		"\3\2\2\2\u0445\u0446\7\'\2\2\u0446\u0447\7\65\2\2\u0447\u044c\5 \21\2"+
-		"\u0448\u0449\t\4\2\2\u0449\u044b\5 \21\2\u044a\u0448\3\2\2\2\u044b\u044e"+
+		"\3\2\2\2\u0445\u0446\7\'\2\2\u0446\u0447\7\65\2\2\u0447\u044c\5^\60\2"+
+		"\u0448\u0449\t\4\2\2\u0449\u044b\5^\60\2\u044a\u0448\3\2\2\2\u044b\u044e"+
 		"\3\2\2\2\u044c\u044a\3\2\2\2\u044c\u044d\3\2\2\2\u044d\u044f\3\2\2\2\u044e"+
 		"\u044c\3\2\2\2\u044f\u0450\7\66\2\2\u0450\u00ab\3\2\2\2\u0451\u0452\7"+
-		"\65\2\2\u0452\u0457\5 \21\2\u0453\u0454\7\67\2\2\u0454\u0456\5 \21\2\u0455"+
+		"\65\2\2\u0452\u0457\5^\60\2\u0453\u0454\7\67\2\2\u0454\u0456\5^\60\2\u0455"+
 		"\u0453\3\2\2\2\u0456\u0459\3\2\2\2\u0457\u0455\3\2\2\2\u0457\u0458\3\2"+
 		"\2\2\u0458\u045a\3\2\2\2\u0459\u0457\3\2\2\2\u045a\u045b\7\66\2\2\u045b"+
 		"\u045e\3\2\2\2\u045c\u045e\7(\2\2\u045d\u0451\3\2\2\2\u045d\u045c\3\2"+

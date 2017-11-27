@@ -324,7 +324,7 @@ public class PyLogicVisitor<T> extends PyLogic3BaseVisitor<Node>  {
                     cont++;
                 }
             }
-            System.out.println(val);
+            //System.out.println(val);
         }
         return visitChildren(ctx); 
     }
@@ -414,7 +414,7 @@ public class PyLogicVisitor<T> extends PyLogic3BaseVisitor<Node>  {
                         double b1 = Double.parseDouble(b.getDatos());
                         double p1 = Double.parseDouble(p.getDatos());
                         double total = Math.pow(b1, p1);
-                        System.out.println(total);
+                        //System.out.println(total);
                         String T = String.valueOf(total);
                         valor.setDatos(T);
                     }else{
@@ -543,6 +543,13 @@ public class PyLogicVisitor<T> extends PyLogic3BaseVisitor<Node>  {
             aux = new Node(ctx.STRING_LITERAL(), STRING);
         }
         return aux; 
+    }
+    
+    @Override
+    public Node visitFact(FactContext ctx){
+        Node aux = null;
+        
+        return aux;
     }
     
 }
