@@ -6,6 +6,8 @@ import org.antlr.v4.runtime.tree.*;
 
 public class Node {
     static final int ID =1,ENTERO=2,FLOAT=3,IMAG=4,BINARIO=5,HEXA=6,OCTAL=7,TRUE=8,FALSE=9,STRING=10,BITS=11,NONE=12,OTHER=13;
+
+    
     
     int fila;
     int columna;
@@ -104,5 +106,34 @@ public class Node {
     
     public void print(){
         System.out.println(this.toString());
+    }
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 37 * hash + this.Tipo;
+        hash = 37 * hash + Objects.hashCode(this.datos);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Node other = (Node) obj;
+        
+        if (this.Tipo != other.Tipo) {
+            return false;
+        }
+        if (!Objects.equals(this.datos, other.datos)) {
+            return false;
+        }
+        return true;
     }
 }

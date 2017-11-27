@@ -4,3 +4,6 @@ elif 10.5:
     b=45
 elif "asdsadasd":
     c=15
+a = 5
+va = 6
+var = a//va
