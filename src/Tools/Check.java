@@ -10,7 +10,7 @@ public class Check {
     
     public Object validar(Object tabla, Node nodo){
         tablas = (LinkedList<HashMap<Object,Object> >)tabla;
-        for(int i = 0; i < tablas.size(); i++){
+        for(int i = tablas.size()-1; i >= 0; i--){
             table = tablas.get(i);
             if(table.get(nodo) != null){
                 return table.get(nodo);

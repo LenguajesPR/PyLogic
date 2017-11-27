@@ -1,4 +1,4 @@
+a = 5
+va = 6
+var = a//va
 
-var = 4
-var2 = 2
-va = var ** var2

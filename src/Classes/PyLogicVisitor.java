@@ -78,22 +78,146 @@ public class PyLogicVisitor<T> extends PyLogic3BaseVisitor<Node>  {
             for(int i = 0; i < ctx.testlist_star_expr().size();i++){
                 listaTestList.add(visitTestlist_star_expr(ctx.testlist_star_expr(i)));
             }
-            //System.out.println(nombre);
-            //System.out.println(valor);
             tablas.get(0).put(nombre, valor);
-            System.out.println(tablas.get(0).get(nombre));
-            
-            //System.out.println(tablas.get(0).get(valor));
-            
-            //table.put(nombre, valor);
         }
-        //System.out.println(ctx.getText());
-        //System.out.println();
         return aux;
     }
     
     @Override 
     public Node visitTest(TestContext ctx) { 
+        return visitChildren(ctx); 
+    }
+    
+    @Override 
+    public Node visitTerm(TermContext ctx) { 
+        if(ctx.factor().size()==1){
+            return visitFactor(ctx.factor(0));
+        }else{
+            double val=0;
+            Node valor = visitFactor(ctx.factor(0));
+            Node aux = null;
+            if(valor.getTipo() == ENTERO || valor.getTipo() == FLOAT || valor.getTipo() == ID){
+                if(valor.getTipo() != ID){
+                    val = Double.parseDouble(valor.getDatos());
+                }else{
+                    Check l = new Check();
+                    Node u = (Node)l.validar(tablas, valor);
+                    if(u != null){
+                        if (( u.getTipo() == ENTERO || u.getTipo() == FLOAT)){
+                            double k = Double.parseDouble( u.getDatos());
+                            //System.out.println(k);
+                            val = k;
+                            //System.out.println(k);                
+                            //u.setDatos(String.valueOf(k));
+                        }else{
+                            //error tipos
+                        }
+                    }else{
+                        //no declarada
+                    }
+                }
+            }
+            int cont = 1;
+            String linea = ctx.getText();
+            for(int i =0; i < ctx.getText().length();i++){
+                if(linea.charAt(i) == '/' && linea.charAt(i+1) != '/' && linea.charAt(i-1) != '/'){
+                    valor = visitFactor(ctx.factor(cont));
+                    //aux = null;
+                    if(valor.getTipo() == ENTERO || valor.getTipo() == FLOAT || valor.getTipo() == ID){
+                        if(valor.getTipo() != ID){
+                            val /= Double.parseDouble(valor.getDatos());
+                        }else{
+                            Check l = new Check();
+                            Node u = (Node)l.validar(tablas, valor);
+                            if(u != null){
+                                if (( u.getTipo() == ENTERO || u.getTipo() == FLOAT)){
+                                    double k = Double.parseDouble( u.getDatos());
+                                    val /= k;
+                                }else{
+                                    //error tipos
+                                }
+                            }else{
+                                //no declarada
+                            }
+                        }
+                    }
+                    cont++;
+                }else if(linea.charAt(i) == '*'){
+                    valor = visitFactor(ctx.factor(cont));
+                    //aux = null;
+                    //System.out.println("hola");
+                    if(valor.getTipo() == ENTERO || valor.getTipo() == FLOAT || valor.getTipo() == ID){
+                        if(valor.getTipo() != ID){
+                            val *= Double.parseDouble(valor.getDatos());
+                        }else{
+                            Check l = new Check();
+                            Node u = (Node)l.validar(tablas, valor);
+                            if(u != null){
+                                if (( u.getTipo() == ENTERO || u.getTipo() == FLOAT)){
+                                    double k = Double.parseDouble( u.getDatos());
+                                    val *= k;
+                                }else{
+                                    //error tipos
+                                }
+                            }else{
+                                //no declarada
+                            }
+                        }
+                    }
+                    cont++;
+                }else if(linea.charAt(i) == '%'){
+                    valor = visitFactor(ctx.factor(cont));
+                    //aux = null;
+                    if(valor.getTipo() == ENTERO || valor.getTipo() == FLOAT || valor.getTipo() == ID){
+                        if(valor.getTipo() != ID){
+                            //val = Double.parseDouble(valor.getDatos());
+                            double k = Double.parseDouble( valor.getDatos());
+                            double v = val;
+                            val = v % k;
+                        }else{
+                            Check l = new Check();
+                            Node u = (Node)l.validar(tablas, valor);
+                            if(u != null){
+                                if (( u.getTipo() == ENTERO || u.getTipo() == FLOAT)){
+                                    double k = Double.parseDouble( u.getDatos());
+                                    double v = val;
+                                    val = v % k;
+                                }else{
+                                    //error tipos
+                                }
+                            }else{
+                                //no declarada
+                            }
+                        }
+                    }
+                    cont++;
+                }else if(linea.charAt(i) == '/' && linea.charAt(i+1) == '/'){
+                    valor = visitFactor(ctx.factor(cont));
+                    //aux = null;
+                    if(valor.getTipo() == ENTERO || valor.getTipo() == FLOAT || valor.getTipo() == ID){
+                        if(valor.getTipo() != ID){
+                            val /= (int)Double.parseDouble(valor.getDatos());
+                        }else{
+                            Check l = new Check();
+                            Node u = (Node)l.validar(tablas, valor);
+                            if(u != null){
+                                if (( u.getTipo() == ENTERO || u.getTipo() == FLOAT)){
+                                    double k = Double.parseDouble( u.getDatos());
+                                    int j = (int)(k);
+                                    val = Math.floor(val/ k) ;
+                                }else{
+                                    //error tipos
+                                }
+                            }else{
+                                //no declarada
+                            }
+                        }
+                    }
+                    cont++;
+                }
+            }
+            System.out.println(val);
+        }
         return visitChildren(ctx); 
     }
     
@@ -105,16 +229,18 @@ public class PyLogicVisitor<T> extends PyLogic3BaseVisitor<Node>  {
             return  aux;
         }else{
             aux = visitFactor(ctx.factor());
-            String linea = ctx.factor().getText();
+            String linea = ctx.getText();
             if(linea.charAt(0)=='-' && (aux.getTipo() == ENTERO || aux.getTipo() == FLOAT)){   
                 double k = Double.parseDouble( aux.getDatos());
-                k = k*-1;                
+                k = k*-1;
                 aux.setDatos(String.valueOf(k));
             }else if(linea.charAt(0) == '~' && (aux.getTipo() == FALSE || aux.getTipo() == TRUE)){
                 if(aux.getTipo() == FALSE){
                     aux.setTipo(TRUE);
+                    aux.setDatos("True");
                 }else{
                     aux.setTipo(FALSE);
+                    aux.setDatos("Flase");
                 }
             }else if(aux.getTipo() == ID){
                 Check l = new Check();
@@ -122,13 +248,19 @@ public class PyLogicVisitor<T> extends PyLogic3BaseVisitor<Node>  {
                 if(u != null){
                     if (linea.charAt(0)=='-'&&( u.getTipo() == ENTERO || u.getTipo() == FLOAT)){
                         double k = Double.parseDouble( u.getDatos());
-                        k = k*-1;                
+                        //System.out.println(k);
+                        k = k*-1;
+                        //System.out.println(k);                
                         u.setDatos(String.valueOf(k));
                     }else if (linea.charAt(0) == '~' && (u.getTipo() == FALSE || u.getTipo() == TRUE)){
                         if(u.getTipo() == FALSE){
+                            //System.out.println(u.getTipo());
                             u.setTipo(TRUE);
+                            u.setDatos("True");
+                            //System.out.println(u.getTipo());
                         }else{
                             u.setTipo(FALSE);
+                            u.setDatos("False");
                         }
                     }else{
                         //error tipo
