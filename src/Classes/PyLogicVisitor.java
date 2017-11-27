@@ -88,6 +88,40 @@ public class PyLogicVisitor<T> extends PyLogic3BaseVisitor<Node>  {
         return aux;
     }
     
+    @Override
+    public Node visitCompound_stmt(Compound_stmtContext ctx){
+        Node aux = null;
+        if(ctx.if_stmt() != null){
+            visitIf_stmt(ctx.if_stmt());
+        }if(ctx.while_stmt() != null){
+            visitWhile_stmt(ctx.while_stmt());
+        }if(ctx.for_stmt() != null){
+            visitFor_stmt(ctx.for_stmt());
+        }if(ctx.try_stmt() != null){
+            visitTry_stmt(ctx.try_stmt());
+        }if(ctx.with_stmt() != null){
+            visitWith_stmt(ctx.with_stmt());
+        }if(ctx.funcdef() != null){
+            visitFuncdef(ctx.funcdef());
+        }if(ctx.classdef() != null){
+            visitClassdef(ctx.classdef());
+        }if(ctx.decorated() != null){
+            visitDecorated(ctx.decorated());
+        }
+        return aux;
+    }
+    
+    @Override
+    public Node visitIf_stmt(If_stmtContext ctx){
+        Node aux = null;
+        temp.clear();
+        tablas.add(temp);
+        for (int i = 0; i < ctx.test().size() ; i++) {
+            
+        }
+        return aux;
+    }
+    
     @Override 
     public Node visitTest(TestContext ctx) { 
         return visitChildren(ctx); 
