@@ -1,3 +1,4 @@
-a=15
-print(a)
 
+var = 4
+var2 = 2
+va = var ** var2

@@ -72,18 +72,21 @@ public class PyLogicVisitor<T> extends PyLogic3BaseVisitor<Node>  {
         if(ctx.testlist_star_expr().size()==1){
             return aux;
         }else{
-            String nombre = ctx.testlist_star_expr(0).getText();
+            Node nombre = visitTestlist_star_expr(ctx.testlist_star_expr(0));
             Node valor = visitTestlist_star_expr(ctx.testlist_star_expr(1));
-            //List<TerminalNode> asd = ctx.testlist_star_expr();
             LinkedList<Node> listaTestList = new LinkedList<Node>();
             for(int i = 0; i < ctx.testlist_star_expr().size();i++){
                 listaTestList.add(visitTestlist_star_expr(ctx.testlist_star_expr(i)));
             }
-            table.put(nombre, valor);
-            System.out.println(nombre);
-            System.out.println(valor);
+            //System.out.println(nombre);
+            //System.out.println(valor);
+            tablas.get(0).put(nombre, valor);
+            System.out.println(tablas.get(0).get(nombre));
+            
+            //System.out.println(tablas.get(0).get(valor));
+            
+            //table.put(nombre, valor);
         }
-        
         //System.out.println(ctx.getText());
         //System.out.println();
         return aux;
@@ -100,6 +103,41 @@ public class PyLogicVisitor<T> extends PyLogic3BaseVisitor<Node>  {
         if(ctx.power() != null){
             aux = visitPower(ctx.power());
             return  aux;
+        }else{
+            aux = visitFactor(ctx.factor());
+            String linea = ctx.factor().getText();
+            if(linea.charAt(0)=='-' && (aux.getTipo() == ENTERO || aux.getTipo() == FLOAT)){   
+                double k = Double.parseDouble( aux.getDatos());
+                k = k*-1;                
+                aux.setDatos(String.valueOf(k));
+            }else if(linea.charAt(0) == '~' && (aux.getTipo() == FALSE || aux.getTipo() == TRUE)){
+                if(aux.getTipo() == FALSE){
+                    aux.setTipo(TRUE);
+                }else{
+                    aux.setTipo(FALSE);
+                }
+            }else if(aux.getTipo() == ID){
+                Check l = new Check();
+                Node u = (Node)l.validar(tablas, aux);
+                if(u != null){
+                    if (linea.charAt(0)=='-'&&( u.getTipo() == ENTERO || u.getTipo() == FLOAT)){
+                        double k = Double.parseDouble( u.getDatos());
+                        k = k*-1;                
+                        u.setDatos(String.valueOf(k));
+                    }else if (linea.charAt(0) == '~' && (u.getTipo() == FALSE || u.getTipo() == TRUE)){
+                        if(u.getTipo() == FALSE){
+                            u.setTipo(TRUE);
+                        }else{
+                            u.setTipo(FALSE);
+                        }
+                    }else{
+                        //error tipo
+                    }
+                }else{
+                        // error no declarada
+                }
+
+            }
         }
         return visitChildren(ctx);
     }
@@ -116,16 +154,19 @@ public class PyLogicVisitor<T> extends PyLogic3BaseVisitor<Node>  {
                 if(valor.getTipo() != ENTERO && valor.getTipo() != FLOAT && valor.getTipo()!= ID){
                     // error tipos
                 }else{
+                    
                     Check l = new Check(); 
                     Node b = null;
                     Node p = null;
                     if(valor.getTipo() == ID){
                         b = ((Node)l.validar(tablas, valor));
+                        //System.out.println(valor);
+                        //System.out.println(tablas.get(0).get(valor));
                     }else{
                         b = valor;
                     }
                     if(potencia.getTipo() == ID){
-                        p = ((Node)l.validar(tablas, valor));
+                        p = ((Node)l.validar(tablas, potencia));
                     }else{
                         p = potencia;
                     }
@@ -133,6 +174,7 @@ public class PyLogicVisitor<T> extends PyLogic3BaseVisitor<Node>  {
                         double b1 = Double.parseDouble(b.getDatos());
                         double p1 = Double.parseDouble(p.getDatos());
                         double total = Math.pow(b1, p1);
+                        System.out.println(total);
                         String T = String.valueOf(total);
                         valor.setDatos(T);
                     }else{
