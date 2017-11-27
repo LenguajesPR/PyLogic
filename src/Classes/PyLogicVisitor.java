@@ -196,6 +196,148 @@ public class PyLogicVisitor<T> extends PyLogic3BaseVisitor<Node>  {
         return visitChildren(ctx); 
     }
     
+    
+    
+    @Override 
+    public Node visitArith_expr(Arith_exprContext ctx) { 
+        if(ctx.term().size() == 1){
+            return visitTerm(ctx.term(0));
+        }else{
+            double val = 0;
+            String va  = "";
+            Node valor = visitTerm(ctx.term(0));
+            Check l = new Check();
+            Node u = (Node)l.validar(tablas, valor);
+            int aux = 0;
+            if(u != null){
+                if(u.getTipo()==STRING){
+                    aux = 1;
+                }
+            }
+            if((valor.getTipo() == ENTERO || valor.getTipo() == FLOAT || valor.getTipo() == ID) && aux ==0 ){
+                if(valor.getTipo() != ID){
+                    val = Double.parseDouble(valor.getDatos());
+                    //System.out.println(val);
+                }else{
+                    
+                    u = (Node)l.validar(tablas, valor);
+                    if(u != null){
+                        if (( u.getTipo() == ENTERO || u.getTipo() == FLOAT)){
+                            double k = Double.parseDouble( u.getDatos());
+                            //System.out.println(k);
+                            val = k;
+                            //System.out.println(k);                
+                            //u.setDatos(String.valueOf(k));
+                        }else{
+                            //error tipos
+                        }
+                    }else{
+                        //no declarada
+                    }
+                }
+            }else if(valor.getTipo() == STRING || valor.getTipo() == ID){
+                if(valor.getTipo() != ID){
+                    va = valor.getDatos();
+                    aux = 1;
+                }else {
+                     l = new Check();
+                    u = (Node)l.validar(tablas, valor);
+                    if(u != null){
+                        if (( u.getTipo() == STRING )){
+                            va = u.getDatos();
+                            aux = 1;
+                        }else{
+                            //error tipos
+                        }
+                    }else{
+                        //no declarada
+                    }
+                }
+            }
+            int cont = 1;
+            //System.out.println(val);
+            for(int i = 0; i < ctx.getText().length(); i++){
+                if(ctx.getText().charAt(i) == '+'){
+                    valor = visitTerm(ctx.term(cont));
+                    if((valor.getTipo() == ENTERO || valor.getTipo() == FLOAT || valor.getTipo() == ID)&& aux == 0){
+                        if(valor.getTipo() != ID){
+                            val += Double.parseDouble(valor.getDatos());
+                        }else{
+                            
+                             u = (Node)l.validar(tablas, valor);
+                            if(u != null){
+                                if (( u.getTipo() == ENTERO || u.getTipo() == FLOAT)){
+                                    double k = Double.parseDouble( u.getDatos());
+                            //System.out.println(k);
+                                    val += k;
+                            //System.out.println(k);                
+                            //u.setDatos(String.valueOf(k));
+                                }else{
+                            //error tipos
+                                }
+                            }else{
+                        //no declarada
+                            }
+                        }
+                    }else if(valor.getTipo() == STRING || valor.getTipo() == ID){
+                        if(valor.getTipo() != ID){
+                            va += valor.getDatos();
+                            //System.out.println(va);
+                        }else {
+                            
+                            u = (Node)l.validar(tablas, valor);
+                            if(u != null){
+                                if (( u.getTipo() == STRING )){
+                                    va += u.getDatos();
+                                }else{
+                            //error tipos
+                                }
+                            }else{
+                        //no declarada
+                            }
+                        }
+                    }
+                    cont++;
+                }else if(ctx.getText().charAt(i) == '-'){
+                    valor = visitTerm(ctx.term(cont));
+                    if((valor.getTipo() == ENTERO || valor.getTipo() == FLOAT || valor.getTipo() == ID)&& aux == 0){
+                        if(valor.getTipo() != ID){
+                            val -= Double.parseDouble(valor.getDatos());
+                        }else{
+                            l = new Check();
+                             u = (Node)l.validar(tablas, valor);
+                            if(u != null){
+                                if (( u.getTipo() == ENTERO || u.getTipo() == FLOAT)){
+                                    double k = Double.parseDouble( u.getDatos());
+                                    val -= k;
+                                }else{
+                            //error tipos
+                                }
+                            }else{
+                        //no declarada
+                            }
+                        }
+                    }else{
+                        // error tipos
+                    }
+                    cont++;
+                }
+            }
+            if(aux == 0){
+                valor.setDatos(String.valueOf(val));
+                System.out.println(val);
+            }else{
+                valor.setDatos(va);
+                String[] y = va.split("\"");
+                String p = "";
+                for(int r = 0; r < y.length;r++){p+=y[r];}
+                System.out.println(p);
+            }
+            return valor;
+        }
+    }
+    
+    
     @Override 
     public Node visitTerm(TermContext ctx) { 
         if(ctx.factor().size()==1){
@@ -546,10 +688,28 @@ public class PyLogicVisitor<T> extends PyLogic3BaseVisitor<Node>  {
     }
     
     @Override
-    public Node visitFact(FactContext ctx){
-        Node aux = null;
-        
-        return aux;
-    }
+   public Node visitFact(FactContext ctx){
+       Node aux = null;
+       ArrayList<Node> fact = new ArrayList<>();
+       ArrayList<ArrayList<Node>> facts = new ArrayList<>();
+       List<TestContext> tests ;
+       int capacidad = ctx.log_line(0).test().size();
+       List<Log_lineContext> log_stmt = ctx.log_line();
+       for (int i = 0; i < log_stmt.size(); i+=2) {
+           fact.clear();
+           tests = log_stmt.get(i).test();
+           if(tests.size() == capacidad){
+               for (int j = 0; j < tests.size(); j++) {
+                   aux = visitTest(tests.get(j));
+                   fact.add(aux);
+               }
+               facts.add(fact);
+           }else{
+               System.err.printf("ERROR:::Numero invalido de parametros en los hechos \n",capacidad);
+               System.exit(0);
+           }
+       }tablas.get(tablas.size()-1).put(ctx.NAME(), facts);
+       return aux;
+   }
     
 }
