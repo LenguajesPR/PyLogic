@@ -652,7 +652,7 @@ rules
  ;
 
 consult
- : CONSULT '(' test (( AND | OR ) test )* ')'
+ : CONSULT '(' test (OP_BIN test )* ')'
  ;
 
 log_line
@@ -760,6 +760,11 @@ NEWLINE
 /// identifier   ::=  id_start id_continue*
 NAME
  : ID_START ID_CONTINUE*
+ ;
+
+OP_BIN
+ : AND
+ | OR
  ;
 
 /// stringliteral   ::=  [stringprefix](shortstring | longstring)

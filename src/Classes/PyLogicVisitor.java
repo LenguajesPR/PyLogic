@@ -6,7 +6,7 @@ import Tools.*;
 import java.math.*;
 
 public class PyLogicVisitor<T> extends PyLogic3BaseVisitor<Node>  {
-    static final int ID =1,ENTERO=2,FLOAT=3,IMAG=4,BINARIO=5,HEXA=6,OCTAL=7,TRUE=8,FALSE=9,STRING=10,BITS=11,NONE=12;
+    static final int ID =1,ENTERO=2,FLOAT=3,IMAG=4,BINARIO=5,HEXA=6,OCTAL=7,TRUE=8,FALSE=9,STRING=10,BITS=11,NONE=12,OTHER=13;
     
     LinkedList<HashMap<Object,Object> > tablas = new LinkedList<>();
     HashMap<Object, Object> table = new HashMap<>();
@@ -229,10 +229,12 @@ public class PyLogicVisitor<T> extends PyLogic3BaseVisitor<Node>  {
                             //System.out.println(k);                
                             //u.setDatos(String.valueOf(k));
                         }else{
-                            //error tipos
+                            System.err.println("<"+valor.getFila()+","+valor.getColumna()+">ERROR::: Incompativilidad de tipos");
+                            System.exit(0);
                         }
                     }else{
-                        //no declarada
+                        System.err.println("<"+valor.getFila()+","+valor.getColumna()+">ERROR::: Variable no delcarada");
+                        System.exit(0);
                     }
                 }
             }else if(valor.getTipo() == STRING || valor.getTipo() == ID){
@@ -247,10 +249,12 @@ public class PyLogicVisitor<T> extends PyLogic3BaseVisitor<Node>  {
                             va = u.getDatos();
                             aux = 1;
                         }else{
-                            //error tipos
+                            System.err.println("<"+valor.getFila()+","+valor.getColumna()+">ERROR::: Incompativilidad de tipos");
+                            System.exit(0);
                         }
                     }else{
-                        //no declarada
+                        System.err.println("<"+valor.getFila()+","+valor.getColumna()+">ERROR::: variable no declarada");
+                        System.exit(0);
                     }
                 }
             }
@@ -273,10 +277,12 @@ public class PyLogicVisitor<T> extends PyLogic3BaseVisitor<Node>  {
                             //System.out.println(k);                
                             //u.setDatos(String.valueOf(k));
                                 }else{
-                            //error tipos
+                                    System.err.println("<"+valor.getFila()+","+valor.getColumna()+">ERROR::: Incompativilidad de tipos");
+                                    System.exit(0);
                                 }
                             }else{
-                        //no declarada
+                                System.err.println("<"+valor.getFila()+","+valor.getColumna()+">ERROR::: Variable no declarado");
+                                System.exit(0);
                             }
                         }
                     }else if(valor.getTipo() == STRING || valor.getTipo() == ID){
@@ -290,10 +296,12 @@ public class PyLogicVisitor<T> extends PyLogic3BaseVisitor<Node>  {
                                 if (( u.getTipo() == STRING )){
                                     va += u.getDatos();
                                 }else{
-                            //error tipos
+                                    System.err.println("<"+valor.getFila()+","+valor.getColumna()+">ERROR::: variable no declarada");
+                                    System.exit(0);
                                 }
                             }else{
-                        //no declarada
+                                System.err.println("<"+valor.getFila()+","+valor.getColumna()+">ERROR::: Incompativilidad de tipos");
+                                System.exit(0);
                             }
                         }
                     }
@@ -311,27 +319,30 @@ public class PyLogicVisitor<T> extends PyLogic3BaseVisitor<Node>  {
                                     double k = Double.parseDouble( u.getDatos());
                                     val -= k;
                                 }else{
-                            //error tipos
+                                    System.err.println("<"+valor.getFila()+","+valor.getColumna()+">ERROR::: Incompativilidad de tipos");
+                                    System.exit(0);
                                 }
                             }else{
-                        //no declarada
+                                System.err.println("<"+valor.getFila()+","+valor.getColumna()+">ERROR::: "+" Vaiablr no drfinida");
+                                System.exit(0);
                             }
                         }
                     }else{
-                        // error tipos
+                        System.err.println("<"+valor.getFila()+","+valor.getColumna()+">ERROR::: Incompativilidad de tipos");
+                        System.exit(0);
                     }
                     cont++;
                 }
             }
             if(aux == 0){
                 valor.setDatos(String.valueOf(val));
-                System.out.println(val);
+                //System.out.println(val);
             }else{
                 valor.setDatos(va);
                 String[] y = va.split("\"");
                 String p = "";
                 for(int r = 0; r < y.length;r++){p+=y[r];}
-                System.out.println(p);
+                //System.out.println(p);
             }
             return valor;
         }
@@ -360,10 +371,12 @@ public class PyLogicVisitor<T> extends PyLogic3BaseVisitor<Node>  {
                             //System.out.println(k);                
                             //u.setDatos(String.valueOf(k));
                         }else{
-                            //error tipos
+                            System.err.println("<"+valor.getFila()+","+valor.getColumna()+">ERROR::: Incompativilidad de tipos");
+                            System.exit(0);
                         }
                     }else{
-                        //no declarada
+                        System.err.println("<"+valor.getFila()+","+valor.getColumna()+">ERROR::: variable no declarada");
+                        System.exit(0);
                     }
                 }
             }
@@ -384,10 +397,12 @@ public class PyLogicVisitor<T> extends PyLogic3BaseVisitor<Node>  {
                                     double k = Double.parseDouble( u.getDatos());
                                     val /= k;
                                 }else{
-                                    //error tipos
+                                    System.err.println("<"+valor.getFila()+","+valor.getColumna()+">ERROR::: Incompativilidad de tipos");
+                                    System.exit(0);
                                 }
                             }else{
-                                //no declarada
+                                System.err.println("<"+valor.getFila()+","+valor.getColumna()+">ERROR::: variable no declarada");
+                                System.exit(0);
                             }
                         }
                     }
@@ -407,10 +422,12 @@ public class PyLogicVisitor<T> extends PyLogic3BaseVisitor<Node>  {
                                     double k = Double.parseDouble( u.getDatos());
                                     val *= k;
                                 }else{
-                                    //error tipos
+                                    System.err.println("<"+valor.getFila()+","+valor.getColumna()+">ERROR::: Incompativilidad de tipos");
+                                    System.exit(0);
                                 }
                             }else{
-                                //no declarada
+                                System.err.println("<"+valor.getFila()+","+valor.getColumna()+">ERROR::: variable no declarada");
+                                System.exit(0);
                             }
                         }
                     }
@@ -433,10 +450,13 @@ public class PyLogicVisitor<T> extends PyLogic3BaseVisitor<Node>  {
                                     double v = val;
                                     val = v % k;
                                 }else{
-                                    //error tipos
+                                    System.err.println("<"+valor.getFila()+","+valor.getColumna()+">ERROR::: Incompativilidad de tipos");
+                                    System.exit(0);
                                 }
                             }else{
                                 //no declarada
+                                System.err.println("<"+valor.getFila()+","+valor.getColumna()+">ERROR::: variable no declarada");
+                                System.exit(0);
                             }
                         }
                     }
@@ -456,10 +476,12 @@ public class PyLogicVisitor<T> extends PyLogic3BaseVisitor<Node>  {
                                     int j = (int)(k);
                                     val = Math.floor(val/ k) ;
                                 }else{
-                                    //error tipos
+                                    System.err.println("<"+valor.getFila()+","+valor.getColumna()+">ERROR::: Incompativilidad de tipos");
+                                    System.exit(0);
                                 }
                             }else{
-                                //no declarada
+                                System.err.println("<"+valor.getFila()+","+valor.getColumna()+">ERROR::: variable no declarada");
+                                System.exit(0);
                             }
                         }
                     }
@@ -513,10 +535,12 @@ public class PyLogicVisitor<T> extends PyLogic3BaseVisitor<Node>  {
                             u.setDatos("False");
                         }
                     }else{
-                        //error tipo
+                        System.err.println("<"+aux.getFila()+","+aux.getColumna()+">ERROR::: Incompativilidad de tipos");
+                        System.exit(0);
                     }
                 }else{
-                        // error no declarada
+                    System.err.println("<"+aux.getFila()+","+aux.getColumna()+">ERROR::: Variable no declarada");
+                    System.exit(0);
                 }
 
             }
@@ -531,10 +555,12 @@ public class PyLogicVisitor<T> extends PyLogic3BaseVisitor<Node>  {
         if(ctx.factor() != null){
             potencia = visitFactor(ctx.factor());
             if (potencia.getTipo() != ENTERO && potencia.getTipo() != FLOAT && potencia.getTipo()!= ID){
-                // ERROR DE TIPOS
+                System.err.println("<"+potencia.getFila()+","+potencia.getColumna()+">ERROR::: Incompativilidad de tipos");
+                System.exit(0);
             }else{
                 if(valor.getTipo() != ENTERO && valor.getTipo() != FLOAT && valor.getTipo()!= ID){
-                    // error tipos
+                    System.err.println("<"+valor.getFila()+","+valor.getColumna()+">ERROR::: Incompativilidad de tipos");
+                    System.exit(0);
                 }else{
                     
                     Check l = new Check(); 
@@ -560,8 +586,13 @@ public class PyLogicVisitor<T> extends PyLogic3BaseVisitor<Node>  {
                         String T = String.valueOf(total);
                         valor.setDatos(T);
                     }else{
-                        //error
-                        valor = null;
+                        if(b == null){
+                            System.err.println("<"+valor.getFila()+","+valor.getColumna()+">ERROR::: Incompativilidad de tipos");
+                            System.exit(0);
+                        }else{
+                            System.err.println("<"+potencia.getFila()+","+potencia.getColumna()+">ERROR::: Incompativilidad de tipos");
+                            System.exit(0);
+                        }
                     }
                     return valor;
                 }
@@ -688,28 +719,47 @@ public class PyLogicVisitor<T> extends PyLogic3BaseVisitor<Node>  {
     }
     
     @Override
-   public Node visitFact(FactContext ctx){
-       Node aux = null;
-       ArrayList<Node> fact = new ArrayList<>();
-       ArrayList<ArrayList<Node>> facts = new ArrayList<>();
-       List<TestContext> tests ;
-       int capacidad = ctx.log_line(0).test().size();
-       List<Log_lineContext> log_stmt = ctx.log_line();
-       for (int i = 0; i < log_stmt.size(); i+=2) {
-           fact.clear();
-           tests = log_stmt.get(i).test();
-           if(tests.size() == capacidad){
-               for (int j = 0; j < tests.size(); j++) {
-                   aux = visitTest(tests.get(j));
-                   fact.add(aux);
-               }
-               facts.add(fact);
-           }else{
-               System.err.printf("ERROR:::Numero invalido de parametros en los hechos \n",capacidad);
-               System.exit(0);
-           }
-       }tablas.get(tablas.size()-1).put(ctx.NAME(), facts);
-       return aux;
-   }
+    public Node visitFact(FactContext ctx){
+        Node aux = null;
+        ArrayList<Node> fact = new ArrayList<>();
+        ArrayList<ArrayList<Node>> facts = new ArrayList<>();
+        List<TestContext> tests ;
+        int capacidad = ctx.log_line(0).test().size();
+        List<Log_lineContext> log_stmt = ctx.log_line();
+        for (int i = 0; i < log_stmt.size(); i+=2) {
+            fact.clear();
+            tests = log_stmt.get(i).test();
+            if(tests.size() == capacidad){
+                for (int j = 0; j < tests.size(); j++) {
+                    aux = visitTest(tests.get(j));
+                    fact.add(aux);
+                }
+                facts.add(fact);
+            }else{
+                System.err.printf("ERROR:::Numero invalido de parametros en los hechos \n",capacidad);
+                System.exit(0);
+            }
+        }tablas.get(tablas.size()-1).put(ctx.NAME(), facts);
+        return aux;
+    }
+    
+    @Override
+    public Node visitRules(RulesContext ctx){
+        Node aux = null;
+        tablas.get(tablas.size()-1).put(ctx.NAME(),ctx);
+        return aux;
+    }
+    
+    @Override
+    public Node visitConsult(ConsultContext ctx){
+        Node aux = null;
+        List<TestContext> tests = ctx.test();
+        LinkedList<Node> op_bins = new LinkedList<>();
+        for (int i = 0; i < ctx.OP_BIN().size(); i++) {
+            op_bins.add(new Node(ctx.OP_BIN(i),OTHER));
+        }
+        
+        return aux;
+    }
     
 }

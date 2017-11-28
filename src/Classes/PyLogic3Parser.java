@@ -21,18 +21,18 @@ public class PyLogic3Parser extends Parser {
 		ASSERT=9, IF=10, ELIF=11, ELSE=12, WHILE=13, FOR=14, IN=15, TRY=16, FINALLY=17, 
 		WITH=18, EXCEPT=19, LAMBDA=20, OR=21, AND=22, NOT=23, IS=24, NONE=25, 
 		TRUE=26, FALSE=27, CLASS=28, YIELD=29, DEL=30, PASS=31, CONTINUE=32, BREAK=33, 
-		PRINT=34, FACT=35, RULE=36, CONSULT=37, NEWLINE=38, NAME=39, STRING_LITERAL=40, 
-		BYTES_LITERAL=41, DECIMAL_INTEGER=42, OCT_INTEGER=43, HEX_INTEGER=44, 
-		BIN_INTEGER=45, FLOAT_NUMBER=46, IMAG_NUMBER=47, DOT=48, ELLIPSIS=49, 
-		STAR=50, OPEN_PAREN=51, CLOSE_PAREN=52, COMMA=53, COLON=54, SEMI_COLON=55, 
-		POWER=56, ASSIGN=57, OPEN_BRACK=58, CLOSE_BRACK=59, OR_OP=60, XOR=61, 
-		AND_OP=62, LEFT_SHIFT=63, RIGHT_SHIFT=64, ADD=65, MINUS=66, DIV=67, MOD=68, 
-		IDIV=69, NOT_OP=70, OPEN_BRACE=71, CLOSE_BRACE=72, LESS_THAN=73, GREATER_THAN=74, 
-		EQUALS=75, GT_EQ=76, LT_EQ=77, NOT_EQ_1=78, NOT_EQ_2=79, AT=80, ARROW=81, 
-		ADD_ASSIGN=82, SUB_ASSIGN=83, MULT_ASSIGN=84, AT_ASSIGN=85, DIV_ASSIGN=86, 
-		MOD_ASSIGN=87, AND_ASSIGN=88, OR_ASSIGN=89, XOR_ASSIGN=90, LEFT_SHIFT_ASSIGN=91, 
-		RIGHT_SHIFT_ASSIGN=92, POWER_ASSIGN=93, IDIV_ASSIGN=94, SKIP_=95, UNKNOWN_CHAR=96, 
-		INDENT=97, DEDENT=98;
+		PRINT=34, FACT=35, RULE=36, CONSULT=37, NEWLINE=38, NAME=39, OP_BIN=40, 
+		STRING_LITERAL=41, BYTES_LITERAL=42, DECIMAL_INTEGER=43, OCT_INTEGER=44, 
+		HEX_INTEGER=45, BIN_INTEGER=46, FLOAT_NUMBER=47, IMAG_NUMBER=48, DOT=49, 
+		ELLIPSIS=50, STAR=51, OPEN_PAREN=52, CLOSE_PAREN=53, COMMA=54, COLON=55, 
+		SEMI_COLON=56, POWER=57, ASSIGN=58, OPEN_BRACK=59, CLOSE_BRACK=60, OR_OP=61, 
+		XOR=62, AND_OP=63, LEFT_SHIFT=64, RIGHT_SHIFT=65, ADD=66, MINUS=67, DIV=68, 
+		MOD=69, IDIV=70, NOT_OP=71, OPEN_BRACE=72, CLOSE_BRACE=73, LESS_THAN=74, 
+		GREATER_THAN=75, EQUALS=76, GT_EQ=77, LT_EQ=78, NOT_EQ_1=79, NOT_EQ_2=80, 
+		AT=81, ARROW=82, ADD_ASSIGN=83, SUB_ASSIGN=84, MULT_ASSIGN=85, AT_ASSIGN=86, 
+		DIV_ASSIGN=87, MOD_ASSIGN=88, AND_ASSIGN=89, OR_ASSIGN=90, XOR_ASSIGN=91, 
+		LEFT_SHIFT_ASSIGN=92, RIGHT_SHIFT_ASSIGN=93, POWER_ASSIGN=94, IDIV_ASSIGN=95, 
+		SKIP_=96, UNKNOWN_CHAR=97, INDENT=98, DEDENT=99;
 	public static final int
 		RULE_file_input = 0, RULE_single_input = 1, RULE_eval_input = 2, RULE_decorator = 3, 
 		RULE_decorators = 4, RULE_decorated = 5, RULE_funcdef = 6, RULE_parameters = 7, 
@@ -84,26 +84,26 @@ public class PyLogic3Parser extends Parser {
 		"'and'", "'not'", "'is'", "'None'", "'True'", "'False'", "'class'", "'yield'", 
 		"'del'", "'pass'", "'continue'", "'break'", "'print'", "'fact'", "'rule'", 
 		"'consult'", null, null, null, null, null, null, null, null, null, null, 
-		"'.'", "'...'", "'*'", "'('", "')'", "','", "':'", "';'", "'**'", "'='", 
-		"'['", "']'", "'|'", "'^'", "'&'", "'<<'", "'>>'", "'+'", "'-'", "'/'", 
-		"'%'", "'//'", "'~'", "'{'", "'}'", "'<'", "'>'", "'=='", "'>='", "'<='", 
-		"'<>'", "'!='", "'@'", "'->'", "'+='", "'-='", "'*='", "'@='", "'/='", 
-		"'%='", "'&='", "'|='", "'^='", "'<<='", "'>>='", "'**='", "'//='"
+		null, "'.'", "'...'", "'*'", "'('", "')'", "','", "':'", "';'", "'**'", 
+		"'='", "'['", "']'", "'|'", "'^'", "'&'", "'<<'", "'>>'", "'+'", "'-'", 
+		"'/'", "'%'", "'//'", "'~'", "'{'", "'}'", "'<'", "'>'", "'=='", "'>='", 
+		"'<='", "'<>'", "'!='", "'@'", "'->'", "'+='", "'-='", "'*='", "'@='", 
+		"'/='", "'%='", "'&='", "'|='", "'^='", "'<<='", "'>>='", "'**='", "'//='"
 	};
 	private static final String[] _SYMBOLIC_NAMES = {
 		null, "DEF", "RETURN", "RAISE", "FROM", "IMPORT", "AS", "GLOBAL", "NONLOCAL", 
 		"ASSERT", "IF", "ELIF", "ELSE", "WHILE", "FOR", "IN", "TRY", "FINALLY", 
 		"WITH", "EXCEPT", "LAMBDA", "OR", "AND", "NOT", "IS", "NONE", "TRUE", 
 		"FALSE", "CLASS", "YIELD", "DEL", "PASS", "CONTINUE", "BREAK", "PRINT", 
-		"FACT", "RULE", "CONSULT", "NEWLINE", "NAME", "STRING_LITERAL", "BYTES_LITERAL", 
-		"DECIMAL_INTEGER", "OCT_INTEGER", "HEX_INTEGER", "BIN_INTEGER", "FLOAT_NUMBER", 
-		"IMAG_NUMBER", "DOT", "ELLIPSIS", "STAR", "OPEN_PAREN", "CLOSE_PAREN", 
-		"COMMA", "COLON", "SEMI_COLON", "POWER", "ASSIGN", "OPEN_BRACK", "CLOSE_BRACK", 
-		"OR_OP", "XOR", "AND_OP", "LEFT_SHIFT", "RIGHT_SHIFT", "ADD", "MINUS", 
-		"DIV", "MOD", "IDIV", "NOT_OP", "OPEN_BRACE", "CLOSE_BRACE", "LESS_THAN", 
-		"GREATER_THAN", "EQUALS", "GT_EQ", "LT_EQ", "NOT_EQ_1", "NOT_EQ_2", "AT", 
-		"ARROW", "ADD_ASSIGN", "SUB_ASSIGN", "MULT_ASSIGN", "AT_ASSIGN", "DIV_ASSIGN", 
-		"MOD_ASSIGN", "AND_ASSIGN", "OR_ASSIGN", "XOR_ASSIGN", "LEFT_SHIFT_ASSIGN", 
+		"FACT", "RULE", "CONSULT", "NEWLINE", "NAME", "OP_BIN", "STRING_LITERAL", 
+		"BYTES_LITERAL", "DECIMAL_INTEGER", "OCT_INTEGER", "HEX_INTEGER", "BIN_INTEGER", 
+		"FLOAT_NUMBER", "IMAG_NUMBER", "DOT", "ELLIPSIS", "STAR", "OPEN_PAREN", 
+		"CLOSE_PAREN", "COMMA", "COLON", "SEMI_COLON", "POWER", "ASSIGN", "OPEN_BRACK", 
+		"CLOSE_BRACK", "OR_OP", "XOR", "AND_OP", "LEFT_SHIFT", "RIGHT_SHIFT", 
+		"ADD", "MINUS", "DIV", "MOD", "IDIV", "NOT_OP", "OPEN_BRACE", "CLOSE_BRACE", 
+		"LESS_THAN", "GREATER_THAN", "EQUALS", "GT_EQ", "LT_EQ", "NOT_EQ_1", "NOT_EQ_2", 
+		"AT", "ARROW", "ADD_ASSIGN", "SUB_ASSIGN", "MULT_ASSIGN", "AT_ASSIGN", 
+		"DIV_ASSIGN", "MOD_ASSIGN", "AND_ASSIGN", "OR_ASSIGN", "XOR_ASSIGN", "LEFT_SHIFT_ASSIGN", 
 		"RIGHT_SHIFT_ASSIGN", "POWER_ASSIGN", "IDIV_ASSIGN", "SKIP_", "UNKNOWN_CHAR", 
 		"INDENT", "DEDENT"
 	};
@@ -189,7 +189,7 @@ public class PyLogic3Parser extends Parser {
 			setState(182);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << DEF) | (1L << RETURN) | (1L << RAISE) | (1L << FROM) | (1L << IMPORT) | (1L << GLOBAL) | (1L << NONLOCAL) | (1L << ASSERT) | (1L << IF) | (1L << WHILE) | (1L << FOR) | (1L << TRY) | (1L << WITH) | (1L << LAMBDA) | (1L << NOT) | (1L << NONE) | (1L << TRUE) | (1L << FALSE) | (1L << CLASS) | (1L << YIELD) | (1L << DEL) | (1L << PASS) | (1L << CONTINUE) | (1L << BREAK) | (1L << PRINT) | (1L << FACT) | (1L << RULE) | (1L << NEWLINE) | (1L << NAME) | (1L << STRING_LITERAL) | (1L << BYTES_LITERAL) | (1L << DECIMAL_INTEGER) | (1L << OCT_INTEGER) | (1L << HEX_INTEGER) | (1L << BIN_INTEGER) | (1L << FLOAT_NUMBER) | (1L << IMAG_NUMBER) | (1L << ELLIPSIS) | (1L << STAR) | (1L << OPEN_PAREN) | (1L << OPEN_BRACK))) != 0) || ((((_la - 65)) & ~0x3f) == 0 && ((1L << (_la - 65)) & ((1L << (ADD - 65)) | (1L << (MINUS - 65)) | (1L << (NOT_OP - 65)) | (1L << (OPEN_BRACE - 65)) | (1L << (AT - 65)))) != 0)) {
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << DEF) | (1L << RETURN) | (1L << RAISE) | (1L << FROM) | (1L << IMPORT) | (1L << GLOBAL) | (1L << NONLOCAL) | (1L << ASSERT) | (1L << IF) | (1L << WHILE) | (1L << FOR) | (1L << TRY) | (1L << WITH) | (1L << LAMBDA) | (1L << NOT) | (1L << NONE) | (1L << TRUE) | (1L << FALSE) | (1L << CLASS) | (1L << YIELD) | (1L << DEL) | (1L << PASS) | (1L << CONTINUE) | (1L << BREAK) | (1L << PRINT) | (1L << FACT) | (1L << RULE) | (1L << NEWLINE) | (1L << NAME) | (1L << STRING_LITERAL) | (1L << BYTES_LITERAL) | (1L << DECIMAL_INTEGER) | (1L << OCT_INTEGER) | (1L << HEX_INTEGER) | (1L << BIN_INTEGER) | (1L << FLOAT_NUMBER) | (1L << IMAG_NUMBER) | (1L << ELLIPSIS) | (1L << STAR) | (1L << OPEN_PAREN) | (1L << OPEN_BRACK))) != 0) || ((((_la - 66)) & ~0x3f) == 0 && ((1L << (_la - 66)) & ((1L << (ADD - 66)) | (1L << (MINUS - 66)) | (1L << (NOT_OP - 66)) | (1L << (OPEN_BRACE - 66)) | (1L << (AT - 66)))) != 0)) {
 				{
 				setState(180);
 				_errHandler.sync(this);
@@ -1965,7 +1965,7 @@ public class PyLogic3Parser extends Parser {
 			{
 			setState(447);
 			_la = _input.LA(1);
-			if ( !(((((_la - 82)) & ~0x3f) == 0 && ((1L << (_la - 82)) & ((1L << (ADD_ASSIGN - 82)) | (1L << (SUB_ASSIGN - 82)) | (1L << (MULT_ASSIGN - 82)) | (1L << (AT_ASSIGN - 82)) | (1L << (DIV_ASSIGN - 82)) | (1L << (MOD_ASSIGN - 82)) | (1L << (AND_ASSIGN - 82)) | (1L << (OR_ASSIGN - 82)) | (1L << (XOR_ASSIGN - 82)) | (1L << (LEFT_SHIFT_ASSIGN - 82)) | (1L << (RIGHT_SHIFT_ASSIGN - 82)) | (1L << (POWER_ASSIGN - 82)) | (1L << (IDIV_ASSIGN - 82)))) != 0)) ) {
+			if ( !(((((_la - 83)) & ~0x3f) == 0 && ((1L << (_la - 83)) & ((1L << (ADD_ASSIGN - 83)) | (1L << (SUB_ASSIGN - 83)) | (1L << (MULT_ASSIGN - 83)) | (1L << (AT_ASSIGN - 83)) | (1L << (DIV_ASSIGN - 83)) | (1L << (MOD_ASSIGN - 83)) | (1L << (AND_ASSIGN - 83)) | (1L << (OR_ASSIGN - 83)) | (1L << (XOR_ASSIGN - 83)) | (1L << (LEFT_SHIFT_ASSIGN - 83)) | (1L << (RIGHT_SHIFT_ASSIGN - 83)) | (1L << (POWER_ASSIGN - 83)) | (1L << (IDIV_ASSIGN - 83)))) != 0)) ) {
 			_errHandler.recoverInline(this);
 			}
 			else {
@@ -3768,7 +3768,7 @@ public class PyLogic3Parser extends Parser {
 					setState(677); 
 					_errHandler.sync(this);
 					_la = _input.LA(1);
-				} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << DEF) | (1L << RETURN) | (1L << RAISE) | (1L << FROM) | (1L << IMPORT) | (1L << GLOBAL) | (1L << NONLOCAL) | (1L << ASSERT) | (1L << IF) | (1L << WHILE) | (1L << FOR) | (1L << TRY) | (1L << WITH) | (1L << LAMBDA) | (1L << NOT) | (1L << NONE) | (1L << TRUE) | (1L << FALSE) | (1L << CLASS) | (1L << YIELD) | (1L << DEL) | (1L << PASS) | (1L << CONTINUE) | (1L << BREAK) | (1L << PRINT) | (1L << FACT) | (1L << RULE) | (1L << NAME) | (1L << STRING_LITERAL) | (1L << BYTES_LITERAL) | (1L << DECIMAL_INTEGER) | (1L << OCT_INTEGER) | (1L << HEX_INTEGER) | (1L << BIN_INTEGER) | (1L << FLOAT_NUMBER) | (1L << IMAG_NUMBER) | (1L << ELLIPSIS) | (1L << STAR) | (1L << OPEN_PAREN) | (1L << OPEN_BRACK))) != 0) || ((((_la - 65)) & ~0x3f) == 0 && ((1L << (_la - 65)) & ((1L << (ADD - 65)) | (1L << (MINUS - 65)) | (1L << (NOT_OP - 65)) | (1L << (OPEN_BRACE - 65)) | (1L << (AT - 65)))) != 0) );
+				} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << DEF) | (1L << RETURN) | (1L << RAISE) | (1L << FROM) | (1L << IMPORT) | (1L << GLOBAL) | (1L << NONLOCAL) | (1L << ASSERT) | (1L << IF) | (1L << WHILE) | (1L << FOR) | (1L << TRY) | (1L << WITH) | (1L << LAMBDA) | (1L << NOT) | (1L << NONE) | (1L << TRUE) | (1L << FALSE) | (1L << CLASS) | (1L << YIELD) | (1L << DEL) | (1L << PASS) | (1L << CONTINUE) | (1L << BREAK) | (1L << PRINT) | (1L << FACT) | (1L << RULE) | (1L << NAME) | (1L << STRING_LITERAL) | (1L << BYTES_LITERAL) | (1L << DECIMAL_INTEGER) | (1L << OCT_INTEGER) | (1L << HEX_INTEGER) | (1L << BIN_INTEGER) | (1L << FLOAT_NUMBER) | (1L << IMAG_NUMBER) | (1L << ELLIPSIS) | (1L << STAR) | (1L << OPEN_PAREN) | (1L << OPEN_BRACK))) != 0) || ((((_la - 66)) & ~0x3f) == 0 && ((1L << (_la - 66)) & ((1L << (ADD - 66)) | (1L << (MINUS - 66)) | (1L << (NOT_OP - 66)) | (1L << (OPEN_BRACE - 66)) | (1L << (AT - 66)))) != 0) );
 				setState(679);
 				match(DEDENT);
 				}
@@ -4096,29 +4096,27 @@ public class PyLogic3Parser extends Parser {
 	public final Or_testContext or_test() throws RecognitionException {
 		Or_testContext _localctx = new Or_testContext(_ctx, getState());
 		enterRule(_localctx, 100, RULE_or_test);
+		int _la;
 		try {
-			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
 			setState(712);
 			and_test();
 			setState(717);
 			_errHandler.sync(this);
-			_alt = getInterpreter().adaptivePredict(_input,89,_ctx);
-			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
-				if ( _alt==1 ) {
-					{
-					{
-					setState(713);
-					match(OR);
-					setState(714);
-					and_test();
-					}
-					} 
+			_la = _input.LA(1);
+			while (_la==OR) {
+				{
+				{
+				setState(713);
+				match(OR);
+				setState(714);
+				and_test();
+				}
 				}
 				setState(719);
 				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,89,_ctx);
+				_la = _input.LA(1);
 			}
 			}
 		}
@@ -4158,29 +4156,27 @@ public class PyLogic3Parser extends Parser {
 	public final And_testContext and_test() throws RecognitionException {
 		And_testContext _localctx = new And_testContext(_ctx, getState());
 		enterRule(_localctx, 102, RULE_and_test);
+		int _la;
 		try {
-			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
 			setState(720);
 			not_test();
 			setState(725);
 			_errHandler.sync(this);
-			_alt = getInterpreter().adaptivePredict(_input,90,_ctx);
-			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
-				if ( _alt==1 ) {
-					{
-					{
-					setState(721);
-					match(AND);
-					setState(722);
-					not_test();
-					}
-					} 
+			_la = _input.LA(1);
+			while (_la==AND) {
+				{
+				{
+				setState(721);
+				match(AND);
+				setState(722);
+				not_test();
+				}
 				}
 				setState(727);
 				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,90,_ctx);
+				_la = _input.LA(1);
 			}
 			}
 		}
@@ -4307,7 +4303,7 @@ public class PyLogic3Parser extends Parser {
 			setState(739);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << IN) | (1L << NOT) | (1L << IS))) != 0) || ((((_la - 73)) & ~0x3f) == 0 && ((1L << (_la - 73)) & ((1L << (LESS_THAN - 73)) | (1L << (GREATER_THAN - 73)) | (1L << (EQUALS - 73)) | (1L << (GT_EQ - 73)) | (1L << (LT_EQ - 73)) | (1L << (NOT_EQ_1 - 73)) | (1L << (NOT_EQ_2 - 73)))) != 0)) {
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << IN) | (1L << NOT) | (1L << IS))) != 0) || ((((_la - 74)) & ~0x3f) == 0 && ((1L << (_la - 74)) & ((1L << (LESS_THAN - 74)) | (1L << (GREATER_THAN - 74)) | (1L << (EQUALS - 74)) | (1L << (GT_EQ - 74)) | (1L << (LT_EQ - 74)) | (1L << (NOT_EQ_1 - 74)) | (1L << (NOT_EQ_2 - 74)))) != 0)) {
 				{
 				{
 				setState(734);
@@ -4838,7 +4834,7 @@ public class PyLogic3Parser extends Parser {
 			setState(819);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while (((((_la - 50)) & ~0x3f) == 0 && ((1L << (_la - 50)) & ((1L << (STAR - 50)) | (1L << (DIV - 50)) | (1L << (MOD - 50)) | (1L << (IDIV - 50)) | (1L << (AT - 50)))) != 0)) {
+			while (((((_la - 51)) & ~0x3f) == 0 && ((1L << (_la - 51)) & ((1L << (STAR - 51)) | (1L << (DIV - 51)) | (1L << (MOD - 51)) | (1L << (IDIV - 51)) | (1L << (AT - 51)))) != 0)) {
 				{
 				setState(817);
 				_errHandler.sync(this);
@@ -6410,7 +6406,7 @@ public class PyLogic3Parser extends Parser {
 			setState(1053);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << FROM) | (1L << LAMBDA) | (1L << NOT) | (1L << NONE) | (1L << TRUE) | (1L << FALSE) | (1L << NAME) | (1L << STRING_LITERAL) | (1L << BYTES_LITERAL) | (1L << DECIMAL_INTEGER) | (1L << OCT_INTEGER) | (1L << HEX_INTEGER) | (1L << BIN_INTEGER) | (1L << FLOAT_NUMBER) | (1L << IMAG_NUMBER) | (1L << ELLIPSIS) | (1L << STAR) | (1L << OPEN_PAREN) | (1L << OPEN_BRACK))) != 0) || ((((_la - 65)) & ~0x3f) == 0 && ((1L << (_la - 65)) & ((1L << (ADD - 65)) | (1L << (MINUS - 65)) | (1L << (NOT_OP - 65)) | (1L << (OPEN_BRACE - 65)))) != 0)) {
+			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << FROM) | (1L << LAMBDA) | (1L << NOT) | (1L << NONE) | (1L << TRUE) | (1L << FALSE) | (1L << NAME) | (1L << STRING_LITERAL) | (1L << BYTES_LITERAL) | (1L << DECIMAL_INTEGER) | (1L << OCT_INTEGER) | (1L << HEX_INTEGER) | (1L << BIN_INTEGER) | (1L << FLOAT_NUMBER) | (1L << IMAG_NUMBER) | (1L << ELLIPSIS) | (1L << STAR) | (1L << OPEN_PAREN) | (1L << OPEN_BRACK))) != 0) || ((((_la - 66)) & ~0x3f) == 0 && ((1L << (_la - 66)) & ((1L << (ADD - 66)) | (1L << (MINUS - 66)) | (1L << (NOT_OP - 66)) | (1L << (OPEN_BRACE - 66)))) != 0)) {
 				{
 				setState(1052);
 				yield_arg();
@@ -6705,13 +6701,9 @@ public class PyLogic3Parser extends Parser {
 		public TestContext test(int i) {
 			return getRuleContext(TestContext.class,i);
 		}
-		public List<TerminalNode> AND() { return getTokens(PyLogic3Parser.AND); }
-		public TerminalNode AND(int i) {
-			return getToken(PyLogic3Parser.AND, i);
-		}
-		public List<TerminalNode> OR() { return getTokens(PyLogic3Parser.OR); }
-		public TerminalNode OR(int i) {
-			return getToken(PyLogic3Parser.OR, i);
+		public List<TerminalNode> OP_BIN() { return getTokens(PyLogic3Parser.OP_BIN); }
+		public TerminalNode OP_BIN(int i) {
+			return getToken(PyLogic3Parser.OP_BIN, i);
 		}
 		public ConsultContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -6740,19 +6732,11 @@ public class PyLogic3Parser extends Parser {
 			setState(1098);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while (_la==OR || _la==AND) {
+			while (_la==OP_BIN) {
 				{
 				{
 				setState(1094);
-				_la = _input.LA(1);
-				if ( !(_la==OR || _la==AND) ) {
-				_errHandler.recoverInline(this);
-				}
-				else {
-					if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
-					_errHandler.reportMatch(this);
-					consume();
-				}
+				match(OP_BIN);
 				setState(1095);
 				test();
 				}
@@ -7006,7 +6990,7 @@ public class PyLogic3Parser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3d\u0469\4\2\t\2\4"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3e\u0469\4\2\t\2\4"+
 		"\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t"+
 		"\13\4\f\t\f\4\r\t\r\4\16\t\16\4\17\t\17\4\20\t\20\4\21\t\21\4\22\t\22"+
 		"\4\23\t\23\4\24\t\24\4\25\t\25\4\26\t\26\4\27\t\27\4\30\t\30\4\31\t\31"+
@@ -7087,105 +7071,105 @@ public class PyLogic3Parser extends Parser {
 		"\6\b\n\f\16\20\22\24\26\30\32\34\36 \"$&(*,.\60\62\64\668:<>@BDFHJLNP"+
 		"RTVXZ\\^`bdfhjlnprtvxz|~\u0080\u0082\u0084\u0086\u0088\u008a\u008c\u008e"+
 		"\u0090\u0092\u0094\u0096\u0098\u009a\u009c\u009e\u00a0\u00a2\u00a4\u00a6"+
-		"\u00a8\u00aa\u00ac\u00ae\u00b0\u00b2\2\7\3\2T`\3\2\62\63\3\2\27\30\3\2"+
-		"*+\3\2,/\2\u04dd\2\u00b8\3\2\2\2\4\u00c2\3\2\2\2\6\u00c4\3\2\2\2\b\u00cd"+
-		"\3\2\2\2\n\u00d9\3\2\2\2\f\u00dd\3\2\2\2\16\u00e2\3\2\2\2\20\u00ec\3\2"+
-		"\2\2\22\u0133\3\2\2\2\24\u0135\3\2\2\2\26\u017b\3\2\2\2\30\u017d\3\2\2"+
-		"\2\32\u0184\3\2\2\2\34\u0186\3\2\2\2\36\u019b\3\2\2\2 \u019d\3\2\2\2\""+
-		"\u01b2\3\2\2\2$\u01c1\3\2\2\2&\u01c3\3\2\2\2(\u01c6\3\2\2\2*\u01cd\3\2"+
-		"\2\2,\u01cf\3\2\2\2.\u01d1\3\2\2\2\60\u01d3\3\2\2\2\62\u01d7\3\2\2\2\64"+
-		"\u01d9\3\2\2\2\66\u01e3\3\2\2\28\u01e5\3\2\2\2:\u01e8\3\2\2\2<\u0200\3"+
-		"\2\2\2>\u0205\3\2\2\2@\u020a\3\2\2\2B\u0215\3\2\2\2D\u021d\3\2\2\2F\u0225"+
-		"\3\2\2\2H\u022e\3\2\2\2J\u0237\3\2\2\2L\u0245\3\2\2\2N\u0247\3\2\2\2P"+
-		"\u025a\3\2\2\2R\u0263\3\2\2\2T\u026e\3\2\2\2V\u0288\3\2\2\2X\u0294\3\2"+
-		"\2\2Z\u0299\3\2\2\2\\\u02ab\3\2\2\2^\u02b6\3\2\2\2`\u02ba\3\2\2\2b\u02bc"+
-		"\3\2\2\2d\u02c3\3\2\2\2f\u02ca\3\2\2\2h\u02d2\3\2\2\2j\u02dd\3\2\2\2l"+
-		"\u02df\3\2\2\2n\u02f5\3\2\2\2p\u02f8\3\2\2\2r\u02fc\3\2\2\2t\u0304\3\2"+
-		"\2\2v\u030c\3\2\2\2x\u0314\3\2\2\2z\u031e\3\2\2\2|\u0328\3\2\2\2~\u033f"+
-		"\3\2\2\2\u0080\u0341\3\2\2\2\u0082\u0367\3\2\2\2\u0084\u0369\3\2\2\2\u0086"+
-		"\u0382\3\2\2\2\u0088\u0384\3\2\2\2\u008a\u039a\3\2\2\2\u008c\u039c\3\2"+
-		"\2\2\u008e\u03a0\3\2\2\2\u0090\u03ab\3\2\2\2\u0092\u03d7\3\2\2\2\u0094"+
-		"\u03d9\3\2\2\2\u0096\u03ea\3\2\2\2\u0098\u040b\3\2\2\2\u009a\u040f\3\2"+
-		"\2\2\u009c\u0411\3\2\2\2\u009e\u0418\3\2\2\2\u00a0\u041d\3\2\2\2\u00a2"+
-		"\u0424\3\2\2\2\u00a4\u0426\3\2\2\2\u00a6\u042c\3\2\2\2\u00a8\u0438\3\2"+
-		"\2\2\u00aa\u0445\3\2\2\2\u00ac\u045d\3\2\2\2\u00ae\u045f\3\2\2\2\u00b0"+
-		"\u0464\3\2\2\2\u00b2\u0466\3\2\2\2\u00b4\u00b7\7(\2\2\u00b5\u00b7\5\32"+
-		"\16\2\u00b6\u00b4\3\2\2\2\u00b6\u00b5\3\2\2\2\u00b7\u00ba\3\2\2\2\u00b8"+
-		"\u00b6\3\2\2\2\u00b8\u00b9\3\2\2\2\u00b9\u00bb\3\2\2\2\u00ba\u00b8\3\2"+
-		"\2\2\u00bb\u00bc\7\2\2\3\u00bc\3\3\2\2\2\u00bd\u00c3\7(\2\2\u00be\u00c3"+
-		"\5\34\17\2\u00bf\u00c0\5L\'\2\u00c0\u00c1\7(\2\2\u00c1\u00c3\3\2\2\2\u00c2"+
-		"\u00bd\3\2\2\2\u00c2\u00be\3\2\2\2\u00c2\u00bf\3\2\2\2\u00c3\5\3\2\2\2"+
-		"\u00c4\u00c8\5\u0090I\2\u00c5\u00c7\7(\2\2\u00c6\u00c5\3\2\2\2\u00c7\u00ca"+
-		"\3\2\2\2\u00c8\u00c6\3\2\2\2\u00c8\u00c9\3\2\2\2\u00c9\u00cb\3\2\2\2\u00ca"+
-		"\u00c8\3\2\2\2\u00cb\u00cc\7\2\2\3\u00cc\7\3\2\2\2\u00cd\u00ce\7R\2\2"+
-		"\u00ce\u00d4\5D#\2\u00cf\u00d1\7\65\2\2\u00d0\u00d2\5\u0096L\2\u00d1\u00d0"+
-		"\3\2\2\2\u00d1\u00d2\3\2\2\2\u00d2\u00d3\3\2\2\2\u00d3\u00d5\7\66\2\2"+
+		"\u00a8\u00aa\u00ac\u00ae\u00b0\u00b2\2\6\3\2Ua\3\2\63\64\3\2+,\3\2-\60"+
+		"\2\u04dd\2\u00b8\3\2\2\2\4\u00c2\3\2\2\2\6\u00c4\3\2\2\2\b\u00cd\3\2\2"+
+		"\2\n\u00d9\3\2\2\2\f\u00dd\3\2\2\2\16\u00e2\3\2\2\2\20\u00ec\3\2\2\2\22"+
+		"\u0133\3\2\2\2\24\u0135\3\2\2\2\26\u017b\3\2\2\2\30\u017d\3\2\2\2\32\u0184"+
+		"\3\2\2\2\34\u0186\3\2\2\2\36\u019b\3\2\2\2 \u019d\3\2\2\2\"\u01b2\3\2"+
+		"\2\2$\u01c1\3\2\2\2&\u01c3\3\2\2\2(\u01c6\3\2\2\2*\u01cd\3\2\2\2,\u01cf"+
+		"\3\2\2\2.\u01d1\3\2\2\2\60\u01d3\3\2\2\2\62\u01d7\3\2\2\2\64\u01d9\3\2"+
+		"\2\2\66\u01e3\3\2\2\28\u01e5\3\2\2\2:\u01e8\3\2\2\2<\u0200\3\2\2\2>\u0205"+
+		"\3\2\2\2@\u020a\3\2\2\2B\u0215\3\2\2\2D\u021d\3\2\2\2F\u0225\3\2\2\2H"+
+		"\u022e\3\2\2\2J\u0237\3\2\2\2L\u0245\3\2\2\2N\u0247\3\2\2\2P\u025a\3\2"+
+		"\2\2R\u0263\3\2\2\2T\u026e\3\2\2\2V\u0288\3\2\2\2X\u0294\3\2\2\2Z\u0299"+
+		"\3\2\2\2\\\u02ab\3\2\2\2^\u02b6\3\2\2\2`\u02ba\3\2\2\2b\u02bc\3\2\2\2"+
+		"d\u02c3\3\2\2\2f\u02ca\3\2\2\2h\u02d2\3\2\2\2j\u02dd\3\2\2\2l\u02df\3"+
+		"\2\2\2n\u02f5\3\2\2\2p\u02f8\3\2\2\2r\u02fc\3\2\2\2t\u0304\3\2\2\2v\u030c"+
+		"\3\2\2\2x\u0314\3\2\2\2z\u031e\3\2\2\2|\u0328\3\2\2\2~\u033f\3\2\2\2\u0080"+
+		"\u0341\3\2\2\2\u0082\u0367\3\2\2\2\u0084\u0369\3\2\2\2\u0086\u0382\3\2"+
+		"\2\2\u0088\u0384\3\2\2\2\u008a\u039a\3\2\2\2\u008c\u039c\3\2\2\2\u008e"+
+		"\u03a0\3\2\2\2\u0090\u03ab\3\2\2\2\u0092\u03d7\3\2\2\2\u0094\u03d9\3\2"+
+		"\2\2\u0096\u03ea\3\2\2\2\u0098\u040b\3\2\2\2\u009a\u040f\3\2\2\2\u009c"+
+		"\u0411\3\2\2\2\u009e\u0418\3\2\2\2\u00a0\u041d\3\2\2\2\u00a2\u0424\3\2"+
+		"\2\2\u00a4\u0426\3\2\2\2\u00a6\u042c\3\2\2\2\u00a8\u0438\3\2\2\2\u00aa"+
+		"\u0445\3\2\2\2\u00ac\u045d\3\2\2\2\u00ae\u045f\3\2\2\2\u00b0\u0464\3\2"+
+		"\2\2\u00b2\u0466\3\2\2\2\u00b4\u00b7\7(\2\2\u00b5\u00b7\5\32\16\2\u00b6"+
+		"\u00b4\3\2\2\2\u00b6\u00b5\3\2\2\2\u00b7\u00ba\3\2\2\2\u00b8\u00b6\3\2"+
+		"\2\2\u00b8\u00b9\3\2\2\2\u00b9\u00bb\3\2\2\2\u00ba\u00b8\3\2\2\2\u00bb"+
+		"\u00bc\7\2\2\3\u00bc\3\3\2\2\2\u00bd\u00c3\7(\2\2\u00be\u00c3\5\34\17"+
+		"\2\u00bf\u00c0\5L\'\2\u00c0\u00c1\7(\2\2\u00c1\u00c3\3\2\2\2\u00c2\u00bd"+
+		"\3\2\2\2\u00c2\u00be\3\2\2\2\u00c2\u00bf\3\2\2\2\u00c3\5\3\2\2\2\u00c4"+
+		"\u00c8\5\u0090I\2\u00c5\u00c7\7(\2\2\u00c6\u00c5\3\2\2\2\u00c7\u00ca\3"+
+		"\2\2\2\u00c8\u00c6\3\2\2\2\u00c8\u00c9\3\2\2\2\u00c9\u00cb\3\2\2\2\u00ca"+
+		"\u00c8\3\2\2\2\u00cb\u00cc\7\2\2\3\u00cc\7\3\2\2\2\u00cd\u00ce\7S\2\2"+
+		"\u00ce\u00d4\5D#\2\u00cf\u00d1\7\66\2\2\u00d0\u00d2\5\u0096L\2\u00d1\u00d0"+
+		"\3\2\2\2\u00d1\u00d2\3\2\2\2\u00d2\u00d3\3\2\2\2\u00d3\u00d5\7\67\2\2"+
 		"\u00d4\u00cf\3\2\2\2\u00d4\u00d5\3\2\2\2\u00d5\u00d6\3\2\2\2\u00d6\u00d7"+
 		"\7(\2\2\u00d7\t\3\2\2\2\u00d8\u00da\5\b\5\2\u00d9\u00d8\3\2\2\2\u00da"+
 		"\u00db\3\2\2\2\u00db\u00d9\3\2\2\2\u00db\u00dc\3\2\2\2\u00dc\13\3\2\2"+
 		"\2\u00dd\u00e0\5\n\6\2\u00de\u00e1\5\u0094K\2\u00df\u00e1\5\16\b\2\u00e0"+
 		"\u00de\3\2\2\2\u00e0\u00df\3\2\2\2\u00e1\r\3\2\2\2\u00e2\u00e3\7\3\2\2"+
-		"\u00e3\u00e4\7)\2\2\u00e4\u00e7\5\20\t\2\u00e5\u00e6\7S\2\2\u00e6\u00e8"+
+		"\u00e3\u00e4\7)\2\2\u00e4\u00e7\5\20\t\2\u00e5\u00e6\7T\2\2\u00e6\u00e8"+
 		"\5^\60\2\u00e7\u00e5\3\2\2\2\u00e7\u00e8\3\2\2\2\u00e8\u00e9\3\2\2\2\u00e9"+
-		"\u00ea\78\2\2\u00ea\u00eb\5\\/\2\u00eb\17\3\2\2\2\u00ec\u00ee\7\65\2\2"+
+		"\u00ea\79\2\2\u00ea\u00eb\5\\/\2\u00eb\17\3\2\2\2\u00ec\u00ee\7\66\2\2"+
 		"\u00ed\u00ef\5\22\n\2\u00ee\u00ed\3\2\2\2\u00ee\u00ef\3\2\2\2\u00ef\u00f0"+
-		"\3\2\2\2\u00f0\u00f1\7\66\2\2\u00f1\21\3\2\2\2\u00f2\u00f5\5\24\13\2\u00f3"+
-		"\u00f4\7;\2\2\u00f4\u00f6\5^\60\2\u00f5\u00f3\3\2\2\2\u00f5\u00f6\3\2"+
-		"\2\2\u00f6\u00ff\3\2\2\2\u00f7\u00f8\7\67\2\2\u00f8\u00fb\5\24\13\2\u00f9"+
-		"\u00fa\7;\2\2\u00fa\u00fc\5^\60\2\u00fb\u00f9\3\2\2\2\u00fb\u00fc\3\2"+
+		"\3\2\2\2\u00f0\u00f1\7\67\2\2\u00f1\21\3\2\2\2\u00f2\u00f5\5\24\13\2\u00f3"+
+		"\u00f4\7<\2\2\u00f4\u00f6\5^\60\2\u00f5\u00f3\3\2\2\2\u00f5\u00f6\3\2"+
+		"\2\2\u00f6\u00ff\3\2\2\2\u00f7\u00f8\78\2\2\u00f8\u00fb\5\24\13\2\u00f9"+
+		"\u00fa\7<\2\2\u00fa\u00fc\5^\60\2\u00fb\u00f9\3\2\2\2\u00fb\u00fc\3\2"+
 		"\2\2\u00fc\u00fe\3\2\2\2\u00fd\u00f7\3\2\2\2\u00fe\u0101\3\2\2\2\u00ff"+
 		"\u00fd\3\2\2\2\u00ff\u0100\3\2\2\2\u0100\u011b\3\2\2\2\u0101\u00ff\3\2"+
-		"\2\2\u0102\u0119\7\67\2\2\u0103\u0105\7\64\2\2\u0104\u0106\5\24\13\2\u0105"+
-		"\u0104\3\2\2\2\u0105\u0106\3\2\2\2\u0106\u010f\3\2\2\2\u0107\u0108\7\67"+
-		"\2\2\u0108\u010b\5\24\13\2\u0109\u010a\7;\2\2\u010a\u010c\5^\60\2\u010b"+
+		"\2\2\u0102\u0119\78\2\2\u0103\u0105\7\65\2\2\u0104\u0106\5\24\13\2\u0105"+
+		"\u0104\3\2\2\2\u0105\u0106\3\2\2\2\u0106\u010f\3\2\2\2\u0107\u0108\78"+
+		"\2\2\u0108\u010b\5\24\13\2\u0109\u010a\7<\2\2\u010a\u010c\5^\60\2\u010b"+
 		"\u0109\3\2\2\2\u010b\u010c\3\2\2\2\u010c\u010e\3\2\2\2\u010d\u0107\3\2"+
 		"\2\2\u010e\u0111\3\2\2\2\u010f\u010d\3\2\2\2\u010f\u0110\3\2\2\2\u0110"+
-		"\u0115\3\2\2\2\u0111\u010f\3\2\2\2\u0112\u0113\7\67\2\2\u0113\u0114\7"+
-		":\2\2\u0114\u0116\5\24\13\2\u0115\u0112\3\2\2\2\u0115\u0116\3\2\2\2\u0116"+
-		"\u011a\3\2\2\2\u0117\u0118\7:\2\2\u0118\u011a\5\24\13\2\u0119\u0103\3"+
+		"\u0115\3\2\2\2\u0111\u010f\3\2\2\2\u0112\u0113\78\2\2\u0113\u0114\7;\2"+
+		"\2\u0114\u0116\5\24\13\2\u0115\u0112\3\2\2\2\u0115\u0116\3\2\2\2\u0116"+
+		"\u011a\3\2\2\2\u0117\u0118\7;\2\2\u0118\u011a\5\24\13\2\u0119\u0103\3"+
 		"\2\2\2\u0119\u0117\3\2\2\2\u0119\u011a\3\2\2\2\u011a\u011c\3\2\2\2\u011b"+
-		"\u0102\3\2\2\2\u011b\u011c\3\2\2\2\u011c\u0134\3\2\2\2\u011d\u011f\7\64"+
+		"\u0102\3\2\2\2\u011b\u011c\3\2\2\2\u011c\u0134\3\2\2\2\u011d\u011f\7\65"+
 		"\2\2\u011e\u0120\5\24\13\2\u011f\u011e\3\2\2\2\u011f\u0120\3\2\2\2\u0120"+
-		"\u0129\3\2\2\2\u0121\u0122\7\67\2\2\u0122\u0125\5\24\13\2\u0123\u0124"+
-		"\7;\2\2\u0124\u0126\5^\60\2\u0125\u0123\3\2\2\2\u0125\u0126\3\2\2\2\u0126"+
+		"\u0129\3\2\2\2\u0121\u0122\78\2\2\u0122\u0125\5\24\13\2\u0123\u0124\7"+
+		"<\2\2\u0124\u0126\5^\60\2\u0125\u0123\3\2\2\2\u0125\u0126\3\2\2\2\u0126"+
 		"\u0128\3\2\2\2\u0127\u0121\3\2\2\2\u0128\u012b\3\2\2\2\u0129\u0127\3\2"+
 		"\2\2\u0129\u012a\3\2\2\2\u012a\u012f\3\2\2\2\u012b\u0129\3\2\2\2\u012c"+
-		"\u012d\7\67\2\2\u012d\u012e\7:\2\2\u012e\u0130\5\24\13\2\u012f\u012c\3"+
-		"\2\2\2\u012f\u0130\3\2\2\2\u0130\u0134\3\2\2\2\u0131\u0132\7:\2\2\u0132"+
+		"\u012d\78\2\2\u012d\u012e\7;\2\2\u012e\u0130\5\24\13\2\u012f\u012c\3\2"+
+		"\2\2\u012f\u0130\3\2\2\2\u0130\u0134\3\2\2\2\u0131\u0132\7;\2\2\u0132"+
 		"\u0134\5\24\13\2\u0133\u00f2\3\2\2\2\u0133\u011d\3\2\2\2\u0133\u0131\3"+
-		"\2\2\2\u0134\23\3\2\2\2\u0135\u0138\7)\2\2\u0136\u0137\78\2\2\u0137\u0139"+
+		"\2\2\2\u0134\23\3\2\2\2\u0135\u0138\7)\2\2\u0136\u0137\79\2\2\u0137\u0139"+
 		"\5^\60\2\u0138\u0136\3\2\2\2\u0138\u0139\3\2\2\2\u0139\25\3\2\2\2\u013a"+
-		"\u013d\5\30\r\2\u013b\u013c\7;\2\2\u013c\u013e\5^\60\2\u013d\u013b\3\2"+
-		"\2\2\u013d\u013e\3\2\2\2\u013e\u0147\3\2\2\2\u013f\u0140\7\67\2\2\u0140"+
-		"\u0143\5\30\r\2\u0141\u0142\7;\2\2\u0142\u0144\5^\60\2\u0143\u0141\3\2"+
+		"\u013d\5\30\r\2\u013b\u013c\7<\2\2\u013c\u013e\5^\60\2\u013d\u013b\3\2"+
+		"\2\2\u013d\u013e\3\2\2\2\u013e\u0147\3\2\2\2\u013f\u0140\78\2\2\u0140"+
+		"\u0143\5\30\r\2\u0141\u0142\7<\2\2\u0142\u0144\5^\60\2\u0143\u0141\3\2"+
 		"\2\2\u0143\u0144\3\2\2\2\u0144\u0146\3\2\2\2\u0145\u013f\3\2\2\2\u0146"+
 		"\u0149\3\2\2\2\u0147\u0145\3\2\2\2\u0147\u0148\3\2\2\2\u0148\u0163\3\2"+
-		"\2\2\u0149\u0147\3\2\2\2\u014a\u0161\7\67\2\2\u014b\u014d\7\64\2\2\u014c"+
+		"\2\2\u0149\u0147\3\2\2\2\u014a\u0161\78\2\2\u014b\u014d\7\65\2\2\u014c"+
 		"\u014e\5\30\r\2\u014d\u014c\3\2\2\2\u014d\u014e\3\2\2\2\u014e\u0157\3"+
-		"\2\2\2\u014f\u0150\7\67\2\2\u0150\u0153\5\30\r\2\u0151\u0152\7;\2\2\u0152"+
+		"\2\2\2\u014f\u0150\78\2\2\u0150\u0153\5\30\r\2\u0151\u0152\7<\2\2\u0152"+
 		"\u0154\5^\60\2\u0153\u0151\3\2\2\2\u0153\u0154\3\2\2\2\u0154\u0156\3\2"+
 		"\2\2\u0155\u014f\3\2\2\2\u0156\u0159\3\2\2\2\u0157\u0155\3\2\2\2\u0157"+
-		"\u0158\3\2\2\2\u0158\u015d\3\2\2\2\u0159\u0157\3\2\2\2\u015a\u015b\7\67"+
-		"\2\2\u015b\u015c\7:\2\2\u015c\u015e\5\30\r\2\u015d\u015a\3\2\2\2\u015d"+
-		"\u015e\3\2\2\2\u015e\u0162\3\2\2\2\u015f\u0160\7:\2\2\u0160\u0162\5\30"+
+		"\u0158\3\2\2\2\u0158\u015d\3\2\2\2\u0159\u0157\3\2\2\2\u015a\u015b\78"+
+		"\2\2\u015b\u015c\7;\2\2\u015c\u015e\5\30\r\2\u015d\u015a\3\2\2\2\u015d"+
+		"\u015e\3\2\2\2\u015e\u0162\3\2\2\2\u015f\u0160\7;\2\2\u0160\u0162\5\30"+
 		"\r\2\u0161\u014b\3\2\2\2\u0161\u015f\3\2\2\2\u0161\u0162\3\2\2\2\u0162"+
 		"\u0164\3\2\2\2\u0163\u014a\3\2\2\2\u0163\u0164\3\2\2\2\u0164\u017c\3\2"+
-		"\2\2\u0165\u0167\7\64\2\2\u0166\u0168\5\30\r\2\u0167\u0166\3\2\2\2\u0167"+
-		"\u0168\3\2\2\2\u0168\u0171\3\2\2\2\u0169\u016a\7\67\2\2\u016a\u016d\5"+
-		"\30\r\2\u016b\u016c\7;\2\2\u016c\u016e\5^\60\2\u016d\u016b\3\2\2\2\u016d"+
+		"\2\2\u0165\u0167\7\65\2\2\u0166\u0168\5\30\r\2\u0167\u0166\3\2\2\2\u0167"+
+		"\u0168\3\2\2\2\u0168\u0171\3\2\2\2\u0169\u016a\78\2\2\u016a\u016d\5\30"+
+		"\r\2\u016b\u016c\7<\2\2\u016c\u016e\5^\60\2\u016d\u016b\3\2\2\2\u016d"+
 		"\u016e\3\2\2\2\u016e\u0170\3\2\2\2\u016f\u0169\3\2\2\2\u0170\u0173\3\2"+
 		"\2\2\u0171\u016f\3\2\2\2\u0171\u0172\3\2\2\2\u0172\u0177\3\2\2\2\u0173"+
-		"\u0171\3\2\2\2\u0174\u0175\7\67\2\2\u0175\u0176\7:\2\2\u0176\u0178\5\30"+
+		"\u0171\3\2\2\2\u0174\u0175\78\2\2\u0175\u0176\7;\2\2\u0176\u0178\5\30"+
 		"\r\2\u0177\u0174\3\2\2\2\u0177\u0178\3\2\2\2\u0178\u017c\3\2\2\2\u0179"+
-		"\u017a\7:\2\2\u017a\u017c\5\30\r\2\u017b\u013a\3\2\2\2\u017b\u0165\3\2"+
+		"\u017a\7;\2\2\u017a\u017c\5\30\r\2\u017b\u013a\3\2\2\2\u017b\u0165\3\2"+
 		"\2\2\u017b\u0179\3\2\2\2\u017c\27\3\2\2\2\u017d\u017e\7)\2\2\u017e\31"+
 		"\3\2\2\2\u017f\u0185\5\34\17\2\u0180\u0185\5L\'\2\u0181\u0185\5\u00a6"+
 		"T\2\u0182\u0185\5\u00a8U\2\u0183\u0185\5\u00a4S\2\u0184\u017f\3\2\2\2"+
 		"\u0184\u0180\3\2\2\2\u0184\u0181\3\2\2\2\u0184\u0182\3\2\2\2\u0184\u0183"+
-		"\3\2\2\2\u0185\33\3\2\2\2\u0186\u018b\5\36\20\2\u0187\u0188\79\2\2\u0188"+
+		"\3\2\2\2\u0185\33\3\2\2\2\u0186\u018b\5\36\20\2\u0187\u0188\7:\2\2\u0188"+
 		"\u018a\5\36\20\2\u0189\u0187\3\2\2\2\u018a\u018d\3\2\2\2\u018b\u0189\3"+
 		"\2\2\2\u018b\u018c\3\2\2\2\u018c\u018f\3\2\2\2\u018d\u018b\3\2\2\2\u018e"+
-		"\u0190\79\2\2\u018f\u018e\3\2\2\2\u018f\u0190\3\2\2\2\u0190\u0191\3\2"+
+		"\u0190\7:\2\2\u018f\u018e\3\2\2\2\u018f\u0190\3\2\2\2\u0190\u0191\3\2"+
 		"\2\2\u0191\u0192\7(\2\2\u0192\35\3\2\2\2\u0193\u019c\5 \21\2\u0194\u019c"+
 		"\5&\24\2\u0195\u019c\5(\25\2\u0196\u019c\5*\26\2\u0197\u019c\5\66\34\2"+
 		"\u0198\u019c\5F$\2\u0199\u019c\5H%\2\u019a\u019c\5J&\2\u019b\u0193\3\2"+
@@ -7193,25 +7177,25 @@ public class PyLogic3Parser extends Parser {
 		"\u0197\3\2\2\2\u019b\u0198\3\2\2\2\u019b\u0199\3\2\2\2\u019b\u019a\3\2"+
 		"\2\2\u019c\37\3\2\2\2\u019d\u01ae\5\"\22\2\u019e\u01a1\5$\23\2\u019f\u01a2"+
 		"\5\u00a0Q\2\u01a0\u01a2\5\u0090I\2\u01a1\u019f\3\2\2\2\u01a1\u01a0\3\2"+
-		"\2\2\u01a2\u01af\3\2\2\2\u01a3\u01a7\7;\2\2\u01a4\u01a8\5\u00a0Q\2\u01a5"+
+		"\2\2\u01a2\u01af\3\2\2\2\u01a3\u01a7\7<\2\2\u01a4\u01a8\5\u00a0Q\2\u01a5"+
 		"\u01a8\5\"\22\2\u01a6\u01a8\5\u00aaV\2\u01a7\u01a4\3\2\2\2\u01a7\u01a5"+
 		"\3\2\2\2\u01a7\u01a6\3\2\2\2\u01a8\u01aa\3\2\2\2\u01a9\u01a3\3\2\2\2\u01aa"+
 		"\u01ad\3\2\2\2\u01ab\u01a9\3\2\2\2\u01ab\u01ac\3\2\2\2\u01ac\u01af\3\2"+
 		"\2\2\u01ad\u01ab\3\2\2\2\u01ae\u019e\3\2\2\2\u01ae\u01ab\3\2\2\2\u01af"+
 		"!\3\2\2\2\u01b0\u01b3\5^\60\2\u01b1\u01b3\5p9\2\u01b2\u01b0\3\2\2\2\u01b2"+
-		"\u01b1\3\2\2\2\u01b3\u01bb\3\2\2\2\u01b4\u01b7\7\67\2\2\u01b5\u01b8\5"+
-		"^\60\2\u01b6\u01b8\5p9\2\u01b7\u01b5\3\2\2\2\u01b7\u01b6\3\2\2\2\u01b8"+
-		"\u01ba\3\2\2\2\u01b9\u01b4\3\2\2\2\u01ba\u01bd\3\2\2\2\u01bb\u01b9\3\2"+
-		"\2\2\u01bb\u01bc\3\2\2\2\u01bc\u01bf\3\2\2\2\u01bd\u01bb\3\2\2\2\u01be"+
-		"\u01c0\7\67\2\2\u01bf\u01be\3\2\2\2\u01bf\u01c0\3\2\2\2\u01c0#\3\2\2\2"+
-		"\u01c1\u01c2\t\2\2\2\u01c2%\3\2\2\2\u01c3\u01c4\7 \2\2\u01c4\u01c5\5\u008e"+
-		"H\2\u01c5\'\3\2\2\2\u01c6\u01c7\7!\2\2\u01c7)\3\2\2\2\u01c8\u01ce\5,\27"+
-		"\2\u01c9\u01ce\5.\30\2\u01ca\u01ce\5\60\31\2\u01cb\u01ce\5\64\33\2\u01cc"+
-		"\u01ce\5\62\32\2\u01cd\u01c8\3\2\2\2\u01cd\u01c9\3\2\2\2\u01cd\u01ca\3"+
-		"\2\2\2\u01cd\u01cb\3\2\2\2\u01cd\u01cc\3\2\2\2\u01ce+\3\2\2\2\u01cf\u01d0"+
-		"\7#\2\2\u01d0-\3\2\2\2\u01d1\u01d2\7\"\2\2\u01d2/\3\2\2\2\u01d3\u01d5"+
-		"\7\4\2\2\u01d4\u01d6\5\u0090I\2\u01d5\u01d4\3\2\2\2\u01d5\u01d6\3\2\2"+
-		"\2\u01d6\61\3\2\2\2\u01d7\u01d8\5\u00a0Q\2\u01d8\63\3\2\2\2\u01d9\u01df"+
+		"\u01b1\3\2\2\2\u01b3\u01bb\3\2\2\2\u01b4\u01b7\78\2\2\u01b5\u01b8\5^\60"+
+		"\2\u01b6\u01b8\5p9\2\u01b7\u01b5\3\2\2\2\u01b7\u01b6\3\2\2\2\u01b8\u01ba"+
+		"\3\2\2\2\u01b9\u01b4\3\2\2\2\u01ba\u01bd\3\2\2\2\u01bb\u01b9\3\2\2\2\u01bb"+
+		"\u01bc\3\2\2\2\u01bc\u01bf\3\2\2\2\u01bd\u01bb\3\2\2\2\u01be\u01c0\78"+
+		"\2\2\u01bf\u01be\3\2\2\2\u01bf\u01c0\3\2\2\2\u01c0#\3\2\2\2\u01c1\u01c2"+
+		"\t\2\2\2\u01c2%\3\2\2\2\u01c3\u01c4\7 \2\2\u01c4\u01c5\5\u008eH\2\u01c5"+
+		"\'\3\2\2\2\u01c6\u01c7\7!\2\2\u01c7)\3\2\2\2\u01c8\u01ce\5,\27\2\u01c9"+
+		"\u01ce\5.\30\2\u01ca\u01ce\5\60\31\2\u01cb\u01ce\5\64\33\2\u01cc\u01ce"+
+		"\5\62\32\2\u01cd\u01c8\3\2\2\2\u01cd\u01c9\3\2\2\2\u01cd\u01ca\3\2\2\2"+
+		"\u01cd\u01cb\3\2\2\2\u01cd\u01cc\3\2\2\2\u01ce+\3\2\2\2\u01cf\u01d0\7"+
+		"#\2\2\u01d0-\3\2\2\2\u01d1\u01d2\7\"\2\2\u01d2/\3\2\2\2\u01d3\u01d5\7"+
+		"\4\2\2\u01d4\u01d6\5\u0090I\2\u01d5\u01d4\3\2\2\2\u01d5\u01d6\3\2\2\2"+
+		"\u01d6\61\3\2\2\2\u01d7\u01d8\5\u00a0Q\2\u01d8\63\3\2\2\2\u01d9\u01df"+
 		"\7\5\2\2\u01da\u01dd\5^\60\2\u01db\u01dc\7\6\2\2\u01dc\u01de\5^\60\2\u01dd"+
 		"\u01db\3\2\2\2\u01dd\u01de\3\2\2\2\u01de\u01e0\3\2\2\2\u01df\u01da\3\2"+
 		"\2\2\u01df\u01e0\3\2\2\2\u01e0\65\3\2\2\2\u01e1\u01e4\58\35\2\u01e2\u01e4"+
@@ -7222,63 +7206,63 @@ public class PyLogic3Parser extends Parser {
 		"\u01f6\5D#\2\u01f0\u01f2\t\3\2\2\u01f1\u01f0\3\2\2\2\u01f2\u01f3\3\2\2"+
 		"\2\u01f3\u01f1\3\2\2\2\u01f3\u01f4\3\2\2\2\u01f4\u01f6\3\2\2\2\u01f5\u01ec"+
 		"\3\2\2\2\u01f5\u01f1\3\2\2\2\u01f6\u01f7\3\2\2\2\u01f7\u01fe\7\7\2\2\u01f8"+
-		"\u01ff\7\64\2\2\u01f9\u01fa\7\65\2\2\u01fa\u01fb\5@!\2\u01fb\u01fc\7\66"+
+		"\u01ff\7\65\2\2\u01f9\u01fa\7\66\2\2\u01fa\u01fb\5@!\2\u01fb\u01fc\7\67"+
 		"\2\2\u01fc\u01ff\3\2\2\2\u01fd\u01ff\5@!\2\u01fe\u01f8\3\2\2\2\u01fe\u01f9"+
 		"\3\2\2\2\u01fe\u01fd\3\2\2\2\u01ff;\3\2\2\2\u0200\u0203\7)\2\2\u0201\u0202"+
 		"\7\b\2\2\u0202\u0204\7)\2\2\u0203\u0201\3\2\2\2\u0203\u0204\3\2\2\2\u0204"+
 		"=\3\2\2\2\u0205\u0208\5D#\2\u0206\u0207\7\b\2\2\u0207\u0209\7)\2\2\u0208"+
 		"\u0206\3\2\2\2\u0208\u0209\3\2\2\2\u0209?\3\2\2\2\u020a\u020f\5<\37\2"+
-		"\u020b\u020c\7\67\2\2\u020c\u020e\5<\37\2\u020d\u020b\3\2\2\2\u020e\u0211"+
+		"\u020b\u020c\78\2\2\u020c\u020e\5<\37\2\u020d\u020b\3\2\2\2\u020e\u0211"+
 		"\3\2\2\2\u020f\u020d\3\2\2\2\u020f\u0210\3\2\2\2\u0210\u0213\3\2\2\2\u0211"+
-		"\u020f\3\2\2\2\u0212\u0214\7\67\2\2\u0213\u0212\3\2\2\2\u0213\u0214\3"+
-		"\2\2\2\u0214A\3\2\2\2\u0215\u021a\5> \2\u0216\u0217\7\67\2\2\u0217\u0219"+
-		"\5> \2\u0218\u0216\3\2\2\2\u0219\u021c\3\2\2\2\u021a\u0218\3\2\2\2\u021a"+
+		"\u020f\3\2\2\2\u0212\u0214\78\2\2\u0213\u0212\3\2\2\2\u0213\u0214\3\2"+
+		"\2\2\u0214A\3\2\2\2\u0215\u021a\5> \2\u0216\u0217\78\2\2\u0217\u0219\5"+
+		"> \2\u0218\u0216\3\2\2\2\u0219\u021c\3\2\2\2\u021a\u0218\3\2\2\2\u021a"+
 		"\u021b\3\2\2\2\u021bC\3\2\2\2\u021c\u021a\3\2\2\2\u021d\u0222\7)\2\2\u021e"+
-		"\u021f\7\62\2\2\u021f\u0221\7)\2\2\u0220\u021e\3\2\2\2\u0221\u0224\3\2"+
+		"\u021f\7\63\2\2\u021f\u0221\7)\2\2\u0220\u021e\3\2\2\2\u0221\u0224\3\2"+
 		"\2\2\u0222\u0220\3\2\2\2\u0222\u0223\3\2\2\2\u0223E\3\2\2\2\u0224\u0222"+
-		"\3\2\2\2\u0225\u0226\7\t\2\2\u0226\u022b\7)\2\2\u0227\u0228\7\67\2\2\u0228"+
+		"\3\2\2\2\u0225\u0226\7\t\2\2\u0226\u022b\7)\2\2\u0227\u0228\78\2\2\u0228"+
 		"\u022a\7)\2\2\u0229\u0227\3\2\2\2\u022a\u022d\3\2\2\2\u022b\u0229\3\2"+
 		"\2\2\u022b\u022c\3\2\2\2\u022cG\3\2\2\2\u022d\u022b\3\2\2\2\u022e\u022f"+
-		"\7\n\2\2\u022f\u0234\7)\2\2\u0230\u0231\7\67\2\2\u0231\u0233\7)\2\2\u0232"+
+		"\7\n\2\2\u022f\u0234\7)\2\2\u0230\u0231\78\2\2\u0231\u0233\7)\2\2\u0232"+
 		"\u0230\3\2\2\2\u0233\u0236\3\2\2\2\u0234\u0232\3\2\2\2\u0234\u0235\3\2"+
 		"\2\2\u0235I\3\2\2\2\u0236\u0234\3\2\2\2\u0237\u0238\7\13\2\2\u0238\u023b"+
-		"\5^\60\2\u0239\u023a\7\67\2\2\u023a\u023c\5^\60\2\u023b\u0239\3\2\2\2"+
-		"\u023b\u023c\3\2\2\2\u023cK\3\2\2\2\u023d\u0246\5N(\2\u023e\u0246\5P)"+
-		"\2\u023f\u0246\5R*\2\u0240\u0246\5T+\2\u0241\u0246\5V,\2\u0242\u0246\5"+
-		"\16\b\2\u0243\u0246\5\u0094K\2\u0244\u0246\5\f\7\2\u0245\u023d\3\2\2\2"+
-		"\u0245\u023e\3\2\2\2\u0245\u023f\3\2\2\2\u0245\u0240\3\2\2\2\u0245\u0241"+
-		"\3\2\2\2\u0245\u0242\3\2\2\2\u0245\u0243\3\2\2\2\u0245\u0244\3\2\2\2\u0246"+
-		"M\3\2\2\2\u0247\u0248\7\f\2\2\u0248\u0249\5^\60\2\u0249\u024a\78\2\2\u024a"+
-		"\u0252\5\\/\2\u024b\u024c\7\r\2\2\u024c\u024d\5^\60\2\u024d\u024e\78\2"+
+		"\5^\60\2\u0239\u023a\78\2\2\u023a\u023c\5^\60\2\u023b\u0239\3\2\2\2\u023b"+
+		"\u023c\3\2\2\2\u023cK\3\2\2\2\u023d\u0246\5N(\2\u023e\u0246\5P)\2\u023f"+
+		"\u0246\5R*\2\u0240\u0246\5T+\2\u0241\u0246\5V,\2\u0242\u0246\5\16\b\2"+
+		"\u0243\u0246\5\u0094K\2\u0244\u0246\5\f\7\2\u0245\u023d\3\2\2\2\u0245"+
+		"\u023e\3\2\2\2\u0245\u023f\3\2\2\2\u0245\u0240\3\2\2\2\u0245\u0241\3\2"+
+		"\2\2\u0245\u0242\3\2\2\2\u0245\u0243\3\2\2\2\u0245\u0244\3\2\2\2\u0246"+
+		"M\3\2\2\2\u0247\u0248\7\f\2\2\u0248\u0249\5^\60\2\u0249\u024a\79\2\2\u024a"+
+		"\u0252\5\\/\2\u024b\u024c\7\r\2\2\u024c\u024d\5^\60\2\u024d\u024e\79\2"+
 		"\2\u024e\u024f\5\\/\2\u024f\u0251\3\2\2\2\u0250\u024b\3\2\2\2\u0251\u0254"+
 		"\3\2\2\2\u0252\u0250\3\2\2\2\u0252\u0253\3\2\2\2\u0253\u0258\3\2\2\2\u0254"+
-		"\u0252\3\2\2\2\u0255\u0256\7\16\2\2\u0256\u0257\78\2\2\u0257\u0259\5\\"+
+		"\u0252\3\2\2\2\u0255\u0256\7\16\2\2\u0256\u0257\79\2\2\u0257\u0259\5\\"+
 		"/\2\u0258\u0255\3\2\2\2\u0258\u0259\3\2\2\2\u0259O\3\2\2\2\u025a\u025b"+
-		"\7\17\2\2\u025b\u025c\5^\60\2\u025c\u025d\78\2\2\u025d\u0261\5\\/\2\u025e"+
-		"\u025f\7\16\2\2\u025f\u0260\78\2\2\u0260\u0262\5\\/\2\u0261\u025e\3\2"+
+		"\7\17\2\2\u025b\u025c\5^\60\2\u025c\u025d\79\2\2\u025d\u0261\5\\/\2\u025e"+
+		"\u025f\7\16\2\2\u025f\u0260\79\2\2\u0260\u0262\5\\/\2\u0261\u025e\3\2"+
 		"\2\2\u0261\u0262\3\2\2\2\u0262Q\3\2\2\2\u0263\u0264\7\20\2\2\u0264\u0265"+
 		"\5\u008eH\2\u0265\u0266\7\21\2\2\u0266\u0267\5\u0090I\2\u0267\u0268\7"+
-		"8\2\2\u0268\u026c\5\\/\2\u0269\u026a\7\16\2\2\u026a\u026b\78\2\2\u026b"+
+		"9\2\2\u0268\u026c\5\\/\2\u0269\u026a\7\16\2\2\u026a\u026b\79\2\2\u026b"+
 		"\u026d\5\\/\2\u026c\u0269\3\2\2\2\u026c\u026d\3\2\2\2\u026dS\3\2\2\2\u026e"+
-		"\u026f\7\22\2\2\u026f\u0270\78\2\2\u0270\u0286\5\\/\2\u0271\u0272\5Z."+
-		"\2\u0272\u0273\78\2\2\u0273\u0274\5\\/\2\u0274\u0276\3\2\2\2\u0275\u0271"+
+		"\u026f\7\22\2\2\u026f\u0270\79\2\2\u0270\u0286\5\\/\2\u0271\u0272\5Z."+
+		"\2\u0272\u0273\79\2\2\u0273\u0274\5\\/\2\u0274\u0276\3\2\2\2\u0275\u0271"+
 		"\3\2\2\2\u0276\u0277\3\2\2\2\u0277\u0275\3\2\2\2\u0277\u0278\3\2\2\2\u0278"+
-		"\u027c\3\2\2\2\u0279\u027a\7\16\2\2\u027a\u027b\78\2\2\u027b\u027d\5\\"+
+		"\u027c\3\2\2\2\u0279\u027a\7\16\2\2\u027a\u027b\79\2\2\u027b\u027d\5\\"+
 		"/\2\u027c\u0279\3\2\2\2\u027c\u027d\3\2\2\2\u027d\u0281\3\2\2\2\u027e"+
-		"\u027f\7\23\2\2\u027f\u0280\78\2\2\u0280\u0282\5\\/\2\u0281\u027e\3\2"+
+		"\u027f\7\23\2\2\u027f\u0280\79\2\2\u0280\u0282\5\\/\2\u0281\u027e\3\2"+
 		"\2\2\u0281\u0282\3\2\2\2\u0282\u0287\3\2\2\2\u0283\u0284\7\23\2\2\u0284"+
-		"\u0285\78\2\2\u0285\u0287\5\\/\2\u0286\u0275\3\2\2\2\u0286\u0283\3\2\2"+
+		"\u0285\79\2\2\u0285\u0287\5\\/\2\u0286\u0275\3\2\2\2\u0286\u0283\3\2\2"+
 		"\2\u0287U\3\2\2\2\u0288\u0289\7\24\2\2\u0289\u028e\5X-\2\u028a\u028b\7"+
-		"\67\2\2\u028b\u028d\5X-\2\u028c\u028a\3\2\2\2\u028d\u0290\3\2\2\2\u028e"+
+		"8\2\2\u028b\u028d\5X-\2\u028c\u028a\3\2\2\2\u028d\u0290\3\2\2\2\u028e"+
 		"\u028c\3\2\2\2\u028e\u028f\3\2\2\2\u028f\u0291\3\2\2\2\u0290\u028e\3\2"+
-		"\2\2\u0291\u0292\78\2\2\u0292\u0293\5\\/\2\u0293W\3\2\2\2\u0294\u0297"+
+		"\2\2\u0291\u0292\79\2\2\u0292\u0293\5\\/\2\u0293W\3\2\2\2\u0294\u0297"+
 		"\5^\60\2\u0295\u0296\7\b\2\2\u0296\u0298\5r:\2\u0297\u0295\3\2\2\2\u0297"+
 		"\u0298\3\2\2\2\u0298Y\3\2\2\2\u0299\u029f\7\25\2\2\u029a\u029d\5^\60\2"+
 		"\u029b\u029c\7\b\2\2\u029c\u029e\7)\2\2\u029d\u029b\3\2\2\2\u029d\u029e"+
 		"\3\2\2\2\u029e\u02a0\3\2\2\2\u029f\u029a\3\2\2\2\u029f\u02a0\3\2\2\2\u02a0"+
-		"[\3\2\2\2\u02a1\u02ac\5\34\17\2\u02a2\u02a3\7(\2\2\u02a3\u02a5\7c\2\2"+
+		"[\3\2\2\2\u02a1\u02ac\5\34\17\2\u02a2\u02a3\7(\2\2\u02a3\u02a5\7d\2\2"+
 		"\u02a4\u02a6\5\32\16\2\u02a5\u02a4\3\2\2\2\u02a6\u02a7\3\2\2\2\u02a7\u02a5"+
-		"\3\2\2\2\u02a7\u02a8\3\2\2\2\u02a8\u02a9\3\2\2\2\u02a9\u02aa\7d\2\2\u02aa"+
+		"\3\2\2\2\u02a7\u02a8\3\2\2\2\u02a8\u02a9\3\2\2\2\u02a9\u02aa\7e\2\2\u02aa"+
 		"\u02ac\3\2\2\2\u02ab\u02a1\3\2\2\2\u02ab\u02a2\3\2\2\2\u02ac]\3\2\2\2"+
 		"\u02ad\u02b3\5f\64\2\u02ae\u02af\7\f\2\2\u02af\u02b0\5f\64\2\u02b0\u02b1"+
 		"\7\16\2\2\u02b1\u02b2\5^\60\2\u02b2\u02b4\3\2\2\2\u02b3\u02ae\3\2\2\2"+
@@ -7286,9 +7270,9 @@ public class PyLogic3Parser extends Parser {
 		"\3\2\2\2\u02b6\u02b5\3\2\2\2\u02b7_\3\2\2\2\u02b8\u02bb\5f\64\2\u02b9"+
 		"\u02bb\5d\63\2\u02ba\u02b8\3\2\2\2\u02ba\u02b9\3\2\2\2\u02bba\3\2\2\2"+
 		"\u02bc\u02be\7\26\2\2\u02bd\u02bf\5\26\f\2\u02be\u02bd\3\2\2\2\u02be\u02bf"+
-		"\3\2\2\2\u02bf\u02c0\3\2\2\2\u02c0\u02c1\78\2\2\u02c1\u02c2\5^\60\2\u02c2"+
+		"\3\2\2\2\u02bf\u02c0\3\2\2\2\u02c0\u02c1\79\2\2\u02c1\u02c2\5^\60\2\u02c2"+
 		"c\3\2\2\2\u02c3\u02c5\7\26\2\2\u02c4\u02c6\5\26\f\2\u02c5\u02c4\3\2\2"+
-		"\2\u02c5\u02c6\3\2\2\2\u02c6\u02c7\3\2\2\2\u02c7\u02c8\78\2\2\u02c8\u02c9"+
+		"\2\u02c5\u02c6\3\2\2\2\u02c6\u02c7\3\2\2\2\u02c7\u02c8\79\2\2\u02c8\u02c9"+
 		"\5`\61\2\u02c9e\3\2\2\2\u02ca\u02cf\5h\65\2\u02cb\u02cc\7\27\2\2\u02cc"+
 		"\u02ce\5h\65\2\u02cd\u02cb\3\2\2\2\u02ce\u02d1\3\2\2\2\u02cf\u02cd\3\2"+
 		"\2\2\u02cf\u02d0\3\2\2\2\u02d0g\3\2\2\2\u02d1\u02cf\3\2\2\2\u02d2\u02d7"+
@@ -7298,140 +7282,140 @@ public class PyLogic3Parser extends Parser {
 		"\u02de\5l\67\2\u02dd\u02da\3\2\2\2\u02dd\u02dc\3\2\2\2\u02dek\3\2\2\2"+
 		"\u02df\u02e5\5p9\2\u02e0\u02e1\5n8\2\u02e1\u02e2\5p9\2\u02e2\u02e4\3\2"+
 		"\2\2\u02e3\u02e0\3\2\2\2\u02e4\u02e7\3\2\2\2\u02e5\u02e3\3\2\2\2\u02e5"+
-		"\u02e6\3\2\2\2\u02e6m\3\2\2\2\u02e7\u02e5\3\2\2\2\u02e8\u02f6\7K\2\2\u02e9"+
-		"\u02f6\7L\2\2\u02ea\u02f6\7M\2\2\u02eb\u02f6\7N\2\2\u02ec\u02f6\7O\2\2"+
-		"\u02ed\u02f6\7P\2\2\u02ee\u02f6\7Q\2\2\u02ef\u02f6\7\21\2\2\u02f0\u02f1"+
+		"\u02e6\3\2\2\2\u02e6m\3\2\2\2\u02e7\u02e5\3\2\2\2\u02e8\u02f6\7L\2\2\u02e9"+
+		"\u02f6\7M\2\2\u02ea\u02f6\7N\2\2\u02eb\u02f6\7O\2\2\u02ec\u02f6\7P\2\2"+
+		"\u02ed\u02f6\7Q\2\2\u02ee\u02f6\7R\2\2\u02ef\u02f6\7\21\2\2\u02f0\u02f1"+
 		"\7\31\2\2\u02f1\u02f6\7\21\2\2\u02f2\u02f6\7\32\2\2\u02f3\u02f4\7\32\2"+
 		"\2\u02f4\u02f6\7\31\2\2\u02f5\u02e8\3\2\2\2\u02f5\u02e9\3\2\2\2\u02f5"+
 		"\u02ea\3\2\2\2\u02f5\u02eb\3\2\2\2\u02f5\u02ec\3\2\2\2\u02f5\u02ed\3\2"+
 		"\2\2\u02f5\u02ee\3\2\2\2\u02f5\u02ef\3\2\2\2\u02f5\u02f0\3\2\2\2\u02f5"+
-		"\u02f2\3\2\2\2\u02f5\u02f3\3\2\2\2\u02f6o\3\2\2\2\u02f7\u02f9\7\64\2\2"+
+		"\u02f2\3\2\2\2\u02f5\u02f3\3\2\2\2\u02f6o\3\2\2\2\u02f7\u02f9\7\65\2\2"+
 		"\u02f8\u02f7\3\2\2\2\u02f8\u02f9\3\2\2\2\u02f9\u02fa\3\2\2\2\u02fa\u02fb"+
-		"\5r:\2\u02fbq\3\2\2\2\u02fc\u0301\5t;\2\u02fd\u02fe\7>\2\2\u02fe\u0300"+
+		"\5r:\2\u02fbq\3\2\2\2\u02fc\u0301\5t;\2\u02fd\u02fe\7?\2\2\u02fe\u0300"+
 		"\5t;\2\u02ff\u02fd\3\2\2\2\u0300\u0303\3\2\2\2\u0301\u02ff\3\2\2\2\u0301"+
 		"\u0302\3\2\2\2\u0302s\3\2\2\2\u0303\u0301\3\2\2\2\u0304\u0309\5v<\2\u0305"+
-		"\u0306\7?\2\2\u0306\u0308\5v<\2\u0307\u0305\3\2\2\2\u0308\u030b\3\2\2"+
+		"\u0306\7@\2\2\u0306\u0308\5v<\2\u0307\u0305\3\2\2\2\u0308\u030b\3\2\2"+
 		"\2\u0309\u0307\3\2\2\2\u0309\u030a\3\2\2\2\u030au\3\2\2\2\u030b\u0309"+
-		"\3\2\2\2\u030c\u0311\5x=\2\u030d\u030e\7@\2\2\u030e\u0310\5x=\2\u030f"+
+		"\3\2\2\2\u030c\u0311\5x=\2\u030d\u030e\7A\2\2\u030e\u0310\5x=\2\u030f"+
 		"\u030d\3\2\2\2\u0310\u0313\3\2\2\2\u0311\u030f\3\2\2\2\u0311\u0312\3\2"+
 		"\2\2\u0312w\3\2\2\2\u0313\u0311\3\2\2\2\u0314\u031b\5z>\2\u0315\u0316"+
-		"\7A\2\2\u0316\u031a\5z>\2\u0317\u0318\7B\2\2\u0318\u031a\5z>\2\u0319\u0315"+
+		"\7B\2\2\u0316\u031a\5z>\2\u0317\u0318\7C\2\2\u0318\u031a\5z>\2\u0319\u0315"+
 		"\3\2\2\2\u0319\u0317\3\2\2\2\u031a\u031d\3\2\2\2\u031b\u0319\3\2\2\2\u031b"+
 		"\u031c\3\2\2\2\u031cy\3\2\2\2\u031d\u031b\3\2\2\2\u031e\u0325\5|?\2\u031f"+
-		"\u0320\7C\2\2\u0320\u0324\5|?\2\u0321\u0322\7D\2\2\u0322\u0324\5|?\2\u0323"+
+		"\u0320\7D\2\2\u0320\u0324\5|?\2\u0321\u0322\7E\2\2\u0322\u0324\5|?\2\u0323"+
 		"\u031f\3\2\2\2\u0323\u0321\3\2\2\2\u0324\u0327\3\2\2\2\u0325\u0323\3\2"+
 		"\2\2\u0325\u0326\3\2\2\2\u0326{\3\2\2\2\u0327\u0325\3\2\2\2\u0328\u0335"+
-		"\5~@\2\u0329\u032a\7\64\2\2\u032a\u0334\5~@\2\u032b\u032c\7E\2\2\u032c"+
-		"\u0334\5~@\2\u032d\u032e\7F\2\2\u032e\u0334\5~@\2\u032f\u0330\7G\2\2\u0330"+
-		"\u0334\5~@\2\u0331\u0332\7R\2\2\u0332\u0334\5~@\2\u0333\u0329\3\2\2\2"+
+		"\5~@\2\u0329\u032a\7\65\2\2\u032a\u0334\5~@\2\u032b\u032c\7F\2\2\u032c"+
+		"\u0334\5~@\2\u032d\u032e\7G\2\2\u032e\u0334\5~@\2\u032f\u0330\7H\2\2\u0330"+
+		"\u0334\5~@\2\u0331\u0332\7S\2\2\u0332\u0334\5~@\2\u0333\u0329\3\2\2\2"+
 		"\u0333\u032b\3\2\2\2\u0333\u032d\3\2\2\2\u0333\u032f\3\2\2\2\u0333\u0331"+
 		"\3\2\2\2\u0334\u0337\3\2\2\2\u0335\u0333\3\2\2\2\u0335\u0336\3\2\2\2\u0336"+
-		"}\3\2\2\2\u0337\u0335\3\2\2\2\u0338\u0339\7C\2\2\u0339\u0340\5~@\2\u033a"+
-		"\u033b\7D\2\2\u033b\u0340\5~@\2\u033c\u033d\7H\2\2\u033d\u0340\5~@\2\u033e"+
+		"}\3\2\2\2\u0337\u0335\3\2\2\2\u0338\u0339\7D\2\2\u0339\u0340\5~@\2\u033a"+
+		"\u033b\7E\2\2\u033b\u0340\5~@\2\u033c\u033d\7I\2\2\u033d\u0340\5~@\2\u033e"+
 		"\u0340\5\u0080A\2\u033f\u0338\3\2\2\2\u033f\u033a\3\2\2\2\u033f\u033c"+
 		"\3\2\2\2\u033f\u033e\3\2\2\2\u0340\177\3\2\2\2\u0341\u0345\5\u0082B\2"+
 		"\u0342\u0344\5\u0086D\2\u0343\u0342\3\2\2\2\u0344\u0347\3\2\2\2\u0345"+
 		"\u0343\3\2\2\2\u0345\u0346\3\2\2\2\u0346\u034a\3\2\2\2\u0347\u0345\3\2"+
-		"\2\2\u0348\u0349\7:\2\2\u0349\u034b\5~@\2\u034a\u0348\3\2\2\2\u034a\u034b"+
-		"\3\2\2\2\u034b\u0081\3\2\2\2\u034c\u034f\7\65\2\2\u034d\u0350\5\u00a0"+
+		"\2\2\u0348\u0349\7;\2\2\u0349\u034b\5~@\2\u034a\u0348\3\2\2\2\u034a\u034b"+
+		"\3\2\2\2\u034b\u0081\3\2\2\2\u034c\u034f\7\66\2\2\u034d\u0350\5\u00a0"+
 		"Q\2\u034e\u0350\5\u0084C\2\u034f\u034d\3\2\2\2\u034f\u034e\3\2\2\2\u034f"+
-		"\u0350\3\2\2\2\u0350\u0351\3\2\2\2\u0351\u0368\7\66\2\2\u0352\u0354\7"+
-		"<\2\2\u0353\u0355\5\u0084C\2\u0354\u0353\3\2\2\2\u0354\u0355\3\2\2\2\u0355"+
-		"\u0356\3\2\2\2\u0356\u0368\7=\2\2\u0357\u0359\7I\2\2\u0358\u035a\5\u0092"+
+		"\u0350\3\2\2\2\u0350\u0351\3\2\2\2\u0351\u0368\7\67\2\2\u0352\u0354\7"+
+		"=\2\2\u0353\u0355\5\u0084C\2\u0354\u0353\3\2\2\2\u0354\u0355\3\2\2\2\u0355"+
+		"\u0356\3\2\2\2\u0356\u0368\7>\2\2\u0357\u0359\7J\2\2\u0358\u035a\5\u0092"+
 		"J\2\u0359\u0358\3\2\2\2\u0359\u035a\3\2\2\2\u035a\u035b\3\2\2\2\u035b"+
-		"\u0368\7J\2\2\u035c\u0368\7)\2\2\u035d\u0368\5\u00b0Y\2\u035e\u0360\5"+
+		"\u0368\7K\2\2\u035c\u0368\7)\2\2\u035d\u0368\5\u00b0Y\2\u035e\u0360\5"+
 		"\u00aeX\2\u035f\u035e\3\2\2\2\u0360\u0361\3\2\2\2\u0361\u035f\3\2\2\2"+
-		"\u0361\u0362\3\2\2\2\u0362\u0368\3\2\2\2\u0363\u0368\7\63\2\2\u0364\u0368"+
+		"\u0361\u0362\3\2\2\2\u0362\u0368\3\2\2\2\u0363\u0368\7\64\2\2\u0364\u0368"+
 		"\7\33\2\2\u0365\u0368\7\34\2\2\u0366\u0368\7\35\2\2\u0367\u034c\3\2\2"+
 		"\2\u0367\u0352\3\2\2\2\u0367\u0357\3\2\2\2\u0367\u035c\3\2\2\2\u0367\u035d"+
 		"\3\2\2\2\u0367\u035f\3\2\2\2\u0367\u0363\3\2\2\2\u0367\u0364\3\2\2\2\u0367"+
 		"\u0365\3\2\2\2\u0367\u0366\3\2\2\2\u0368\u0083\3\2\2\2\u0369\u0375\5^"+
-		"\60\2\u036a\u0376\5\u009cO\2\u036b\u036c\7\67\2\2\u036c\u036e\5^\60\2"+
-		"\u036d\u036b\3\2\2\2\u036e\u0371\3\2\2\2\u036f\u036d\3\2\2\2\u036f\u0370"+
-		"\3\2\2\2\u0370\u0373\3\2\2\2\u0371\u036f\3\2\2\2\u0372\u0374\7\67\2\2"+
-		"\u0373\u0372\3\2\2\2\u0373\u0374\3\2\2\2\u0374\u0376\3\2\2\2\u0375\u036a"+
-		"\3\2\2\2\u0375\u036f\3\2\2\2\u0376\u0085\3\2\2\2\u0377\u0379\7\65\2\2"+
-		"\u0378\u037a\5\u0096L\2\u0379\u0378\3\2\2\2\u0379\u037a\3\2\2\2\u037a"+
-		"\u037b\3\2\2\2\u037b\u0383\7\66\2\2\u037c\u037d\7<\2\2\u037d\u037e\5\u0088"+
-		"E\2\u037e\u037f\7=\2\2\u037f\u0383\3\2\2\2\u0380\u0381\7\62\2\2\u0381"+
-		"\u0383\7)\2\2\u0382\u0377\3\2\2\2\u0382\u037c\3\2\2\2\u0382\u0380\3\2"+
-		"\2\2\u0383\u0087\3\2\2\2\u0384\u0389\5\u008aF\2\u0385\u0386\7\67\2\2\u0386"+
-		"\u0388\5\u008aF\2\u0387\u0385\3\2\2\2\u0388\u038b\3\2\2\2\u0389\u0387"+
-		"\3\2\2\2\u0389\u038a\3\2\2\2\u038a\u038d\3\2\2\2\u038b\u0389\3\2\2\2\u038c"+
-		"\u038e\7\67\2\2\u038d\u038c\3\2\2\2\u038d\u038e\3\2\2\2\u038e\u0089\3"+
-		"\2\2\2\u038f\u039b\5^\60\2\u0390\u0392\5^\60\2\u0391\u0390\3\2\2\2\u0391"+
-		"\u0392\3\2\2\2\u0392\u0393\3\2\2\2\u0393\u0395\78\2\2\u0394\u0396\5^\60"+
-		"\2\u0395\u0394\3\2\2\2\u0395\u0396\3\2\2\2\u0396\u0398\3\2\2\2\u0397\u0399"+
-		"\5\u008cG\2\u0398\u0397\3\2\2\2\u0398\u0399\3\2\2\2\u0399\u039b\3\2\2"+
-		"\2\u039a\u038f\3\2\2\2\u039a\u0391\3\2\2\2\u039b\u008b\3\2\2\2\u039c\u039e"+
-		"\78\2\2\u039d\u039f\5^\60\2\u039e\u039d\3\2\2\2\u039e\u039f\3\2\2\2\u039f"+
-		"\u008d\3\2\2\2\u03a0\u03a5\5p9\2\u03a1\u03a2\7\67\2\2\u03a2\u03a4\5p9"+
-		"\2\u03a3\u03a1\3\2\2\2\u03a4\u03a7\3\2\2\2\u03a5\u03a3\3\2\2\2\u03a5\u03a6"+
-		"\3\2\2\2\u03a6\u03a9\3\2\2\2\u03a7\u03a5\3\2\2\2\u03a8\u03aa\7\67\2\2"+
-		"\u03a9\u03a8\3\2\2\2\u03a9\u03aa\3\2\2\2\u03aa\u008f\3\2\2\2\u03ab\u03b0"+
-		"\5^\60\2\u03ac\u03ad\7\67\2\2\u03ad\u03af\5^\60\2\u03ae\u03ac\3\2\2\2"+
-		"\u03af\u03b2\3\2\2\2\u03b0\u03ae\3\2\2\2\u03b0\u03b1\3\2\2\2\u03b1\u03b4"+
-		"\3\2\2\2\u03b2\u03b0\3\2\2\2\u03b3\u03b5\7\67\2\2\u03b4\u03b3\3\2\2\2"+
-		"\u03b4\u03b5\3\2\2\2\u03b5\u0091\3\2\2\2\u03b6\u03b7\5^\60\2\u03b7\u03b8"+
-		"\78\2\2\u03b8\u03c7\5^\60\2\u03b9\u03c8\5\u009cO\2\u03ba\u03bb\7\67\2"+
-		"\2\u03bb\u03bc\5^\60\2\u03bc\u03bd\78\2\2\u03bd\u03be\5^\60\2\u03be\u03c0"+
-		"\3\2\2\2\u03bf\u03ba\3\2\2\2\u03c0\u03c3\3\2\2\2\u03c1\u03bf\3\2\2\2\u03c1"+
-		"\u03c2\3\2\2\2\u03c2\u03c5\3\2\2\2\u03c3\u03c1\3\2\2\2\u03c4\u03c6\7\67"+
+		"\60\2\u036a\u0376\5\u009cO\2\u036b\u036c\78\2\2\u036c\u036e\5^\60\2\u036d"+
+		"\u036b\3\2\2\2\u036e\u0371\3\2\2\2\u036f\u036d\3\2\2\2\u036f\u0370\3\2"+
+		"\2\2\u0370\u0373\3\2\2\2\u0371\u036f\3\2\2\2\u0372\u0374\78\2\2\u0373"+
+		"\u0372\3\2\2\2\u0373\u0374\3\2\2\2\u0374\u0376\3\2\2\2\u0375\u036a\3\2"+
+		"\2\2\u0375\u036f\3\2\2\2\u0376\u0085\3\2\2\2\u0377\u0379\7\66\2\2\u0378"+
+		"\u037a\5\u0096L\2\u0379\u0378\3\2\2\2\u0379\u037a\3\2\2\2\u037a\u037b"+
+		"\3\2\2\2\u037b\u0383\7\67\2\2\u037c\u037d\7=\2\2\u037d\u037e\5\u0088E"+
+		"\2\u037e\u037f\7>\2\2\u037f\u0383\3\2\2\2\u0380\u0381\7\63\2\2\u0381\u0383"+
+		"\7)\2\2\u0382\u0377\3\2\2\2\u0382\u037c\3\2\2\2\u0382\u0380\3\2\2\2\u0383"+
+		"\u0087\3\2\2\2\u0384\u0389\5\u008aF\2\u0385\u0386\78\2\2\u0386\u0388\5"+
+		"\u008aF\2\u0387\u0385\3\2\2\2\u0388\u038b\3\2\2\2\u0389\u0387\3\2\2\2"+
+		"\u0389\u038a\3\2\2\2\u038a\u038d\3\2\2\2\u038b\u0389\3\2\2\2\u038c\u038e"+
+		"\78\2\2\u038d\u038c\3\2\2\2\u038d\u038e\3\2\2\2\u038e\u0089\3\2\2\2\u038f"+
+		"\u039b\5^\60\2\u0390\u0392\5^\60\2\u0391\u0390\3\2\2\2\u0391\u0392\3\2"+
+		"\2\2\u0392\u0393\3\2\2\2\u0393\u0395\79\2\2\u0394\u0396\5^\60\2\u0395"+
+		"\u0394\3\2\2\2\u0395\u0396\3\2\2\2\u0396\u0398\3\2\2\2\u0397\u0399\5\u008c"+
+		"G\2\u0398\u0397\3\2\2\2\u0398\u0399\3\2\2\2\u0399\u039b\3\2\2\2\u039a"+
+		"\u038f\3\2\2\2\u039a\u0391\3\2\2\2\u039b\u008b\3\2\2\2\u039c\u039e\79"+
+		"\2\2\u039d\u039f\5^\60\2\u039e\u039d\3\2\2\2\u039e\u039f\3\2\2\2\u039f"+
+		"\u008d\3\2\2\2\u03a0\u03a5\5p9\2\u03a1\u03a2\78\2\2\u03a2\u03a4\5p9\2"+
+		"\u03a3\u03a1\3\2\2\2\u03a4\u03a7\3\2\2\2\u03a5\u03a3\3\2\2\2\u03a5\u03a6"+
+		"\3\2\2\2\u03a6\u03a9\3\2\2\2\u03a7\u03a5\3\2\2\2\u03a8\u03aa\78\2\2\u03a9"+
+		"\u03a8\3\2\2\2\u03a9\u03aa\3\2\2\2\u03aa\u008f\3\2\2\2\u03ab\u03b0\5^"+
+		"\60\2\u03ac\u03ad\78\2\2\u03ad\u03af\5^\60\2\u03ae\u03ac\3\2\2\2\u03af"+
+		"\u03b2\3\2\2\2\u03b0\u03ae\3\2\2\2\u03b0\u03b1\3\2\2\2\u03b1\u03b4\3\2"+
+		"\2\2\u03b2\u03b0\3\2\2\2\u03b3\u03b5\78\2\2\u03b4\u03b3\3\2\2\2\u03b4"+
+		"\u03b5\3\2\2\2\u03b5\u0091\3\2\2\2\u03b6\u03b7\5^\60\2\u03b7\u03b8\79"+
+		"\2\2\u03b8\u03c7\5^\60\2\u03b9\u03c8\5\u009cO\2\u03ba\u03bb\78\2\2\u03bb"+
+		"\u03bc\5^\60\2\u03bc\u03bd\79\2\2\u03bd\u03be\5^\60\2\u03be\u03c0\3\2"+
+		"\2\2\u03bf\u03ba\3\2\2\2\u03c0\u03c3\3\2\2\2\u03c1\u03bf\3\2\2\2\u03c1"+
+		"\u03c2\3\2\2\2\u03c2\u03c5\3\2\2\2\u03c3\u03c1\3\2\2\2\u03c4\u03c6\78"+
 		"\2\2\u03c5\u03c4\3\2\2\2\u03c5\u03c6\3\2\2\2\u03c6\u03c8\3\2\2\2\u03c7"+
 		"\u03b9\3\2\2\2\u03c7\u03c1\3\2\2\2\u03c8\u03d8\3\2\2\2\u03c9\u03d5\5^"+
-		"\60\2\u03ca\u03d6\5\u009cO\2\u03cb\u03cc\7\67\2\2\u03cc\u03ce\5^\60\2"+
-		"\u03cd\u03cb\3\2\2\2\u03ce\u03d1\3\2\2\2\u03cf\u03cd\3\2\2\2\u03cf\u03d0"+
-		"\3\2\2\2\u03d0\u03d3\3\2\2\2\u03d1\u03cf\3\2\2\2\u03d2\u03d4\7\67\2\2"+
-		"\u03d3\u03d2\3\2\2\2\u03d3\u03d4\3\2\2\2\u03d4\u03d6\3\2\2\2\u03d5\u03ca"+
-		"\3\2\2\2\u03d5\u03cf\3\2\2\2\u03d6\u03d8\3\2\2\2\u03d7\u03b6\3\2\2\2\u03d7"+
+		"\60\2\u03ca\u03d6\5\u009cO\2\u03cb\u03cc\78\2\2\u03cc\u03ce\5^\60\2\u03cd"+
+		"\u03cb\3\2\2\2\u03ce\u03d1\3\2\2\2\u03cf\u03cd\3\2\2\2\u03cf\u03d0\3\2"+
+		"\2\2\u03d0\u03d3\3\2\2\2\u03d1\u03cf\3\2\2\2\u03d2\u03d4\78\2\2\u03d3"+
+		"\u03d2\3\2\2\2\u03d3\u03d4\3\2\2\2\u03d4\u03d6\3\2\2\2\u03d5\u03ca\3\2"+
+		"\2\2\u03d5\u03cf\3\2\2\2\u03d6\u03d8\3\2\2\2\u03d7\u03b6\3\2\2\2\u03d7"+
 		"\u03c9\3\2\2\2\u03d8\u0093\3\2\2\2\u03d9\u03da\7\36\2\2\u03da\u03e0\7"+
-		")\2\2\u03db\u03dd\7\65\2\2\u03dc\u03de\5\u0096L\2\u03dd\u03dc\3\2\2\2"+
-		"\u03dd\u03de\3\2\2\2\u03de\u03df\3\2\2\2\u03df\u03e1\7\66\2\2\u03e0\u03db"+
-		"\3\2\2\2\u03e0\u03e1\3\2\2\2\u03e1\u03e2\3\2\2\2\u03e2\u03e3\78\2\2\u03e3"+
+		")\2\2\u03db\u03dd\7\66\2\2\u03dc\u03de\5\u0096L\2\u03dd\u03dc\3\2\2\2"+
+		"\u03dd\u03de\3\2\2\2\u03de\u03df\3\2\2\2\u03df\u03e1\7\67\2\2\u03e0\u03db"+
+		"\3\2\2\2\u03e0\u03e1\3\2\2\2\u03e1\u03e2\3\2\2\2\u03e2\u03e3\79\2\2\u03e3"+
 		"\u03e4\5\\/\2\u03e4\u0095\3\2\2\2\u03e5\u03e6\5\u0098M\2\u03e6\u03e7\7"+
-		"\67\2\2\u03e7\u03e9\3\2\2\2\u03e8\u03e5\3\2\2\2\u03e9\u03ec\3\2\2\2\u03ea"+
+		"8\2\2\u03e7\u03e9\3\2\2\2\u03e8\u03e5\3\2\2\2\u03e9\u03ec\3\2\2\2\u03ea"+
 		"\u03e8\3\2\2\2\u03ea\u03eb\3\2\2\2\u03eb\u0401\3\2\2\2\u03ec\u03ea\3\2"+
-		"\2\2\u03ed\u03ef\5\u0098M\2\u03ee\u03f0\7\67\2\2\u03ef\u03ee\3\2\2\2\u03ef"+
-		"\u03f0\3\2\2\2\u03f0\u0402\3\2\2\2\u03f1\u03f2\7\64\2\2\u03f2\u03f7\5"+
-		"^\60\2\u03f3\u03f4\7\67\2\2\u03f4\u03f6\5\u0098M\2\u03f5\u03f3\3\2\2\2"+
-		"\u03f6\u03f9\3\2\2\2\u03f7\u03f5\3\2\2\2\u03f7\u03f8\3\2\2\2\u03f8\u03fd"+
-		"\3\2\2\2\u03f9\u03f7\3\2\2\2\u03fa\u03fb\7\67\2\2\u03fb\u03fc\7:\2\2\u03fc"+
-		"\u03fe\5^\60\2\u03fd\u03fa\3\2\2\2\u03fd\u03fe\3\2\2\2\u03fe\u0402\3\2"+
-		"\2\2\u03ff\u0400\7:\2\2\u0400\u0402\5^\60\2\u0401\u03ed\3\2\2\2\u0401"+
-		"\u03f1\3\2\2\2\u0401\u03ff\3\2\2\2\u0402\u0097\3\2\2\2\u0403\u0405\5^"+
-		"\60\2\u0404\u0406\5\u009cO\2\u0405\u0404\3\2\2\2\u0405\u0406\3\2\2\2\u0406"+
-		"\u040c\3\2\2\2\u0407\u0408\5^\60\2\u0408\u0409\7;\2\2\u0409\u040a\5^\60"+
-		"\2\u040a\u040c\3\2\2\2\u040b\u0403\3\2\2\2\u040b\u0407\3\2\2\2\u040c\u0099"+
-		"\3\2\2\2\u040d\u0410\5\u009cO\2\u040e\u0410\5\u009eP\2\u040f\u040d\3\2"+
-		"\2\2\u040f\u040e\3\2\2\2\u0410\u009b\3\2\2\2\u0411\u0412\7\20\2\2\u0412"+
-		"\u0413\5\u008eH\2\u0413\u0414\7\21\2\2\u0414\u0416\5f\64\2\u0415\u0417"+
-		"\5\u009aN\2\u0416\u0415\3\2\2\2\u0416\u0417\3\2\2\2\u0417\u009d\3\2\2"+
-		"\2\u0418\u0419\7\f\2\2\u0419\u041b\5`\61\2\u041a\u041c\5\u009aN\2\u041b"+
-		"\u041a\3\2\2\2\u041b\u041c\3\2\2\2\u041c\u009f\3\2\2\2\u041d\u041f\7\37"+
-		"\2\2\u041e\u0420\5\u00a2R\2\u041f\u041e\3\2\2\2\u041f\u0420\3\2\2\2\u0420"+
+		"\2\2\u03ed\u03ef\5\u0098M\2\u03ee\u03f0\78\2\2\u03ef\u03ee\3\2\2\2\u03ef"+
+		"\u03f0\3\2\2\2\u03f0\u0402\3\2\2\2\u03f1\u03f2\7\65\2\2\u03f2\u03f7\5"+
+		"^\60\2\u03f3\u03f4\78\2\2\u03f4\u03f6\5\u0098M\2\u03f5\u03f3\3\2\2\2\u03f6"+
+		"\u03f9\3\2\2\2\u03f7\u03f5\3\2\2\2\u03f7\u03f8\3\2\2\2\u03f8\u03fd\3\2"+
+		"\2\2\u03f9\u03f7\3\2\2\2\u03fa\u03fb\78\2\2\u03fb\u03fc\7;\2\2\u03fc\u03fe"+
+		"\5^\60\2\u03fd\u03fa\3\2\2\2\u03fd\u03fe\3\2\2\2\u03fe\u0402\3\2\2\2\u03ff"+
+		"\u0400\7;\2\2\u0400\u0402\5^\60\2\u0401\u03ed\3\2\2\2\u0401\u03f1\3\2"+
+		"\2\2\u0401\u03ff\3\2\2\2\u0402\u0097\3\2\2\2\u0403\u0405\5^\60\2\u0404"+
+		"\u0406\5\u009cO\2\u0405\u0404\3\2\2\2\u0405\u0406\3\2\2\2\u0406\u040c"+
+		"\3\2\2\2\u0407\u0408\5^\60\2\u0408\u0409\7<\2\2\u0409\u040a\5^\60\2\u040a"+
+		"\u040c\3\2\2\2\u040b\u0403\3\2\2\2\u040b\u0407\3\2\2\2\u040c\u0099\3\2"+
+		"\2\2\u040d\u0410\5\u009cO\2\u040e\u0410\5\u009eP\2\u040f\u040d\3\2\2\2"+
+		"\u040f\u040e\3\2\2\2\u0410\u009b\3\2\2\2\u0411\u0412\7\20\2\2\u0412\u0413"+
+		"\5\u008eH\2\u0413\u0414\7\21\2\2\u0414\u0416\5f\64\2\u0415\u0417\5\u009a"+
+		"N\2\u0416\u0415\3\2\2\2\u0416\u0417\3\2\2\2\u0417\u009d\3\2\2\2\u0418"+
+		"\u0419\7\f\2\2\u0419\u041b\5`\61\2\u041a\u041c\5\u009aN\2\u041b\u041a"+
+		"\3\2\2\2\u041b\u041c\3\2\2\2\u041c\u009f\3\2\2\2\u041d\u041f\7\37\2\2"+
+		"\u041e\u0420\5\u00a2R\2\u041f\u041e\3\2\2\2\u041f\u0420\3\2\2\2\u0420"+
 		"\u00a1\3\2\2\2\u0421\u0422\7\6\2\2\u0422\u0425\5^\60\2\u0423\u0425\5\u0090"+
 		"I\2\u0424\u0421\3\2\2\2\u0424\u0423\3\2\2\2\u0425\u00a3\3\2\2\2\u0426"+
-		"\u0427\7$\2\2\u0427\u0428\7\65\2\2\u0428\u0429\5 \21\2\u0429\u042a\7\66"+
+		"\u0427\7$\2\2\u0427\u0428\7\66\2\2\u0428\u0429\5 \21\2\u0429\u042a\7\67"+
 		"\2\2\u042a\u042b\7(\2\2\u042b\u00a5\3\2\2\2\u042c\u042d\7%\2\2\u042d\u042e"+
-		"\7)\2\2\u042e\u042f\78\2\2\u042f\u0430\7(\2\2\u0430\u0432\7c\2\2\u0431"+
+		"\7)\2\2\u042e\u042f\79\2\2\u042f\u0430\7(\2\2\u0430\u0432\7d\2\2\u0431"+
 		"\u0433\5\u00acW\2\u0432\u0431\3\2\2\2\u0433\u0434\3\2\2\2\u0434\u0432"+
-		"\3\2\2\2\u0434\u0435\3\2\2\2\u0435\u0436\3\2\2\2\u0436\u0437\7d\2\2\u0437"+
+		"\3\2\2\2\u0434\u0435\3\2\2\2\u0435\u0436\3\2\2\2\u0436\u0437\7e\2\2\u0437"+
 		"\u00a7\3\2\2\2\u0438\u0439\7&\2\2\u0439\u043a\7)\2\2\u043a\u043b\5\20"+
-		"\t\2\u043b\u043c\78\2\2\u043c\u043d\7(\2\2\u043d\u043f\7c\2\2\u043e\u0440"+
+		"\t\2\u043b\u043c\79\2\2\u043c\u043d\7(\2\2\u043d\u043f\7d\2\2\u043e\u0440"+
 		"\5\u00acW\2\u043f\u043e\3\2\2\2\u0440\u0441\3\2\2\2\u0441\u043f\3\2\2"+
-		"\2\u0441\u0442\3\2\2\2\u0442\u0443\3\2\2\2\u0443\u0444\7d\2\2\u0444\u00a9"+
-		"\3\2\2\2\u0445\u0446\7\'\2\2\u0446\u0447\7\65\2\2\u0447\u044c\5^\60\2"+
-		"\u0448\u0449\t\4\2\2\u0449\u044b\5^\60\2\u044a\u0448\3\2\2\2\u044b\u044e"+
+		"\2\u0441\u0442\3\2\2\2\u0442\u0443\3\2\2\2\u0443\u0444\7e\2\2\u0444\u00a9"+
+		"\3\2\2\2\u0445\u0446\7\'\2\2\u0446\u0447\7\66\2\2\u0447\u044c\5^\60\2"+
+		"\u0448\u0449\7*\2\2\u0449\u044b\5^\60\2\u044a\u0448\3\2\2\2\u044b\u044e"+
 		"\3\2\2\2\u044c\u044a\3\2\2\2\u044c\u044d\3\2\2\2\u044d\u044f\3\2\2\2\u044e"+
-		"\u044c\3\2\2\2\u044f\u0450\7\66\2\2\u0450\u00ab\3\2\2\2\u0451\u0452\7"+
-		"\65\2\2\u0452\u0457\5^\60\2\u0453\u0454\7\67\2\2\u0454\u0456\5^\60\2\u0455"+
+		"\u044c\3\2\2\2\u044f\u0450\7\67\2\2\u0450\u00ab\3\2\2\2\u0451\u0452\7"+
+		"\66\2\2\u0452\u0457\5^\60\2\u0453\u0454\78\2\2\u0454\u0456\5^\60\2\u0455"+
 		"\u0453\3\2\2\2\u0456\u0459\3\2\2\2\u0457\u0455\3\2\2\2\u0457\u0458\3\2"+
-		"\2\2\u0458\u045a\3\2\2\2\u0459\u0457\3\2\2\2\u045a\u045b\7\66\2\2\u045b"+
+		"\2\2\u0458\u045a\3\2\2\2\u0459\u0457\3\2\2\2\u045a\u045b\7\67\2\2\u045b"+
 		"\u045e\3\2\2\2\u045c\u045e\7(\2\2\u045d\u0451\3\2\2\2\u045d\u045c\3\2"+
-		"\2\2\u045e\u00ad\3\2\2\2\u045f\u0460\t\5\2\2\u0460\u00af\3\2\2\2\u0461"+
-		"\u0465\5\u00b2Z\2\u0462\u0465\7\60\2\2\u0463\u0465\7\61\2\2\u0464\u0461"+
+		"\2\2\u045e\u00ad\3\2\2\2\u045f\u0460\t\4\2\2\u0460\u00af\3\2\2\2\u0461"+
+		"\u0465\5\u00b2Z\2\u0462\u0465\7\61\2\2\u0463\u0465\7\62\2\2\u0464\u0461"+
 		"\3\2\2\2\u0464\u0462\3\2\2\2\u0464\u0463\3\2\2\2\u0465\u00b1\3\2\2\2\u0466"+
-		"\u0467\t\6\2\2\u0467\u00b3\3\2\2\2\u009d\u00b6\u00b8\u00c2\u00c8\u00d1"+
+		"\u0467\t\5\2\2\u0467\u00b3\3\2\2\2\u009d\u00b6\u00b8\u00c2\u00c8\u00d1"+
 		"\u00d4\u00db\u00e0\u00e7\u00ee\u00f5\u00fb\u00ff\u0105\u010b\u010f\u0115"+
 		"\u0119\u011b\u011f\u0125\u0129\u012f\u0133\u0138\u013d\u0143\u0147\u014d"+
 		"\u0153\u0157\u015d\u0161\u0163\u0167\u016d\u0171\u0177\u017b\u0184\u018b"+
