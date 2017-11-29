@@ -69,18 +69,27 @@ public class PyLogicVisitor<T> extends PyLogic3BaseVisitor<Node>  {
     @Override 
     public Node visitExpr_stmt(Expr_stmtContext ctx) { 
         Node aux = visitChildren(ctx); 
+        Check l = new Check();
         if(ctx.testlist_star_expr().size()==1){
             return aux;
         }else{
             Node nombre = visitTestlist_star_expr(ctx.testlist_star_expr(0));
-            Node valor = visitTestlist_star_expr(ctx.testlist_star_expr(1));
+            Node valor = visitTestlist_star_expr(ctx.testlist_star_expr(ctx.testlist_star_expr().size()-1));
             LinkedList<Node> listaTestList = new LinkedList<Node>();
-            for(int i = 0; i < ctx.testlist_star_expr().size();i++){
-                listaTestList.add(visitTestlist_star_expr(ctx.testlist_star_expr(i)));
+            for(int i = 0; i < ctx.testlist_star_expr().size()-1;i++){
+                aux = visitTestlist_star_expr(ctx.testlist_star_expr(i));
+                int lugar = tablas.size()-1;
+                int ubi = l.exist(tablas, aux);
+                if(ubi != -1){
+                    lugar = ubi;
+                } 
+                if(aux.getTipo() == ID){
+                    tablas.get(lugar).put(aux, valor);
+                }else{
+                    System.err.println("error de asignacion");
+                    System.exit(0);
+                }
             }
-
-            table.put(nombre, valor);
-            tablas.get(0).put(nombre, valor);
         }
         
         //System.out.println(ctx.getText());
@@ -196,7 +205,143 @@ public class PyLogicVisitor<T> extends PyLogic3BaseVisitor<Node>  {
         return visitChildren(ctx); 
     }
     
+    @Override 
+    public Node visitPrint(PyLogic3Parser.PrintContext ctx) {
+        Check l = new Check();
+        Node aux = visitExpr_stmt(ctx.expr_stmt());
+        Node valor = (Node)l.validar2(tablas,aux);
+        System.out.println(valor.getDatos());
+        return visitChildren(ctx); 
+    }
     
+    @Override
+    public Node visitComparison(PyLogic3Parser.ComparisonContext ctx) { 
+        //System.out.println(visitStar_expr(ctx.star_expr(0)).getDatos());
+        if(ctx.star_expr().size() == 1){
+            return visitStar_expr(ctx.star_expr(0));
+        }else{
+            Check l = new Check();
+            int tipo = 0;
+            Node valor = visitStar_expr(ctx.star_expr(0));
+            Node primer = valor;
+            String v= "";
+            double v2 = 0;
+            if(valor.getTipo() == STRING){
+                tipo = STRING;
+                v = valor.getDatos();
+            }else if(valor.getTipo() == ENTERO || valor.getTipo() == FLOAT){
+                tipo = ENTERO;
+                v2 = Double.parseDouble(valor.getDatos());
+            }else if(valor.getTipo() == ID){
+                Node aux = (Node)l.validar(tablas, valor);
+                if(aux.getTipo() == ENTERO || aux.getTipo() == FLOAT){
+                    tipo = ENTERO;
+                    v2 = Double.parseDouble(valor.getDatos());
+                }else if(aux.getTipo() == STRING){
+                    tipo = STRING;
+                    v = valor.getDatos();
+                }
+            }else{
+                //error tipo
+            }
+            int cont = 1;
+            boolean tot = true;
+            for(int i = 0; i < ctx.comp_op().size(); i++){
+                Node aux;
+                valor = visitStar_expr(ctx.star_expr(cont));
+                cont++;
+                aux = (Node)l.nodo(tablas, valor);
+                if (tipo == ENTERO && aux.getTipo() == ENTERO && tot){
+                    double k = Double.parseDouble(aux.getDatos());
+                    //System.out.println(ctx.comp_op(i).getText());
+                    tot = l.evaluarI(v2,k,ctx.comp_op(i).getText());
+                    v2 = k;
+                    if(tot == false){
+                        //System.out.println(tot);
+                        primer.setDatos("False");
+                        primer.setTipo(FALSE);    
+                        return primer;
+                    }
+                }else if(tipo == STRING && aux.getTipo() == STRING && tot){
+                    String k = aux.getDatos();
+                    tot = l.evaluarS(v,k,ctx.comp_op(i).getText());
+                    v = k;
+                    
+                    if(tot == false){
+                        //System.out.println(tot);
+                        primer.setDatos("False");
+                        primer.setTipo(FALSE);
+                        return primer;
+                    }
+                }else{
+                    System.err.println("<"+valor.getFila()+","+valor.getColumna()+">ERROR::: Incompativilidad de tipos");
+                    System.exit(0);
+                    return null;
+                }
+            }
+            
+            primer.setDatos("True");
+            primer.setTipo(TRUE);
+            //System.out.println(primer.getDatos());
+            return primer;
+        }
+    }
+    
+    @Override
+    public Node visitShift_expr(PyLogic3Parser.Shift_exprContext ctx) { 
+        if(ctx.arith_expr().size() == 1){
+            return visitArith_expr(ctx.arith_expr(0));
+        }else{
+            Node valor = null;
+            Node aux;
+            Check l = new Check();
+            int op = 0;
+            boolean valido = l.validarTipos(visitArith_expr(ctx.arith_expr(0))); // entero o ID
+            if(valido){
+                valor = visitArith_expr(ctx.arith_expr(0));
+                if(valor.getTipo() == ID){
+                    aux = (Node)l.validar(tablas, valor);
+                }else{
+                    aux = valor;
+                }
+                op = Integer.parseInt(aux.getDatos());
+            }
+            int cont = 1; 
+            for(int i = 0; i < ctx.getText().length();i++){
+                if(ctx.getText().charAt(i)=='<' && ctx.getText().charAt(i+1)=='<'){
+                    valido = l.validarTipos(visitArith_expr(ctx.arith_expr(cont))); // entero o ID
+                    if(valido){
+                        valor = visitArith_expr(ctx.arith_expr(cont));
+                        if(valor.getTipo() == ID){
+                            aux = (Node)l.validar(tablas, valor);
+                        }else{
+                            aux = valor;
+                        }
+                        int des = Integer.parseInt(aux.getDatos()); 
+                        System.out.println(op+" "+des);
+                        op = op << des; 
+                    }
+                    cont++;
+                }else if(ctx.getText().charAt(i)=='>' && ctx.getText().charAt(i+1)=='>'){
+                    valido = l.validarTipos(visitArith_expr(ctx.arith_expr(cont))); // entero o ID
+                    if(valido){
+                        valor = visitArith_expr(ctx.arith_expr(cont));
+                        if(valor.getTipo() == ID){
+                            aux = (Node)l.validar(tablas, valor);
+                        }else{
+                            aux = valor;
+                        }
+                        int des = Integer.parseInt(aux.getDatos()); 
+                        op = op >> des; 
+                    }
+                    cont++;
+                }
+            }
+            valor.setDatos(String.valueOf(op));
+            //System.out.println(valor.getDatos());
+            return valor;
+        }
+    }
     
     @Override 
     public Node visitArith_expr(Arith_exprContext ctx) { 
@@ -344,6 +489,7 @@ public class PyLogicVisitor<T> extends PyLogic3BaseVisitor<Node>  {
                 for(int r = 0; r < y.length;r++){p+=y[r];}
                 //System.out.println(p);
             }
+            //System.out.println(valor.getDatos());
             return valor;
         }
     }
@@ -407,7 +553,7 @@ public class PyLogicVisitor<T> extends PyLogic3BaseVisitor<Node>  {
                         }
                     }
                     cont++;
-                }else if(linea.charAt(i) == '*'){
+                }else if(linea.charAt(i) == '*' && linea.charAt(i+1) != '*'&& linea.charAt(i-1) != '*'){
                     valor = visitFactor(ctx.factor(cont));
                     //aux = null;
                     //System.out.println("hola");
@@ -496,6 +642,7 @@ public class PyLogicVisitor<T> extends PyLogic3BaseVisitor<Node>  {
     @Override
     public Node visitFactor(FactorContext ctx){
         Node aux = null;
+        //System.out.println(ctx.power().getText());
         if(ctx.power() != null){
             aux = visitPower(ctx.power());
             return  aux;
@@ -715,6 +862,7 @@ public class PyLogicVisitor<T> extends PyLogic3BaseVisitor<Node>  {
         }else{
             aux = new Node(ctx.STRING_LITERAL(), STRING);
         }
+        
         return aux; 
     }
     

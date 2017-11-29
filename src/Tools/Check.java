@@ -17,8 +17,168 @@ public class Check {
                 return table.get(nodo);
             }
         }
-        /// return error
+        // error
+        //System.err.println("error variable no declarada");
         return null;
+    }
+    
+    public Object validar2(Object tabla, Node nodo){
+        tablas = (LinkedList<HashMap<Object,Object> >)tabla;
+        for(int i = tablas.size()-1; i >=0; i--){
+            table = tablas.get(i);
+            if(table.get(nodo) != null){
+                return table.get(nodo);
+            }
+        }
+        // error
+        //System.err.println("error variable no declarada");
+        return nodo;
+    }
+    
+    public boolean validarTipos(Node nodo){
+        if(nodo.getTipo() != ENTERO && nodo.getTipo() != ID){
+            //error de tipos
+            System.err.println("<"+nodo.getFila()+","+nodo.getColumna()+">ERROR::: Incompativilidad de tipos");
+            System.exit(0);
+            return false;
+        }else{
+            return true;
+        }
+    }
+    
+    public Object nodo(Object tabla, Node node){
+        Node aux;
+        tablas = (LinkedList<HashMap<Object,Object> >)tabla;
+        for(int i = tablas.size()-1; i >=0; i--){
+            table = tablas.get(i);
+            if(table.get(node) != null){
+                aux = (Node)table.get(node);
+            }
+        }
+        aux = node;
+        if(aux.getTipo() == ENTERO || aux.getTipo() == FLOAT){
+            aux.setTipo(ENTERO);
+            return aux;
+        }else if(aux.getTipo() == STRING){
+            return aux;
+        }else{
+            // error tipos
+            System.err.println("<"+node.getFila()+","+node.getColumna()+">ERROR::: Incompativilidad de tipos");
+            System.exit(0);
+            return null;
+        }
+    }
+    
+    public boolean evaluarI(double t1, double t2, String op){
+        //System.out.println(op);
+        switch(op){
+            case ">":
+                return t1 > t2;
+            case "<":
+                //System.out.println(t1+" "+t2);
+                return t1 < t2;
+            case ">=":
+                return t1 >= t2;
+            case "<=":
+                return t1 <= t2;
+            case "==":
+                return t1 == t2;
+            case "!=":
+                return t1 != t2;
+        }
+        return false;
+    }
+    
+    public static boolean stringC1(String k1, String k2){
+        int lar =0;
+        if(k1.length() > k2.length()){
+            lar = k1.length();
+        }else{
+            lar = k2.length();
+        }
+        // System.out.println(k1.charAt(2)+" "+k2.charAt(2));
+        for (int i = 1 ; i < lar-1; i++){
+            System.out.println(k1.charAt(i)-k2.charAt(i));
+            if(k1.charAt(i)-k2.charAt(i) > 0 ){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        return false;
+    }
+    
+    public static boolean stringC2(String k1, String k2){
+        int lar =0;
+        if(k1.length() > k2.length()){
+            lar = k1.length();
+        }else{
+            lar = k2.length();
+        }
+        for (int i = 1 ; i < lar-1; i++){
+            if(k1.charAt(i)-k2.charAt(i) < 0 ){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        return false;
+    }
+    
+    public static boolean stringD1(String k1, String k2){
+        int lar =0;
+        if(k1.length() > k2.length()){
+            lar = k1.length();
+        }else{
+            lar = k2.length();
+        }
+        for ( int i = 1 ; i < lar-1; i++){
+            if(k1.charAt(i)-k2.charAt(i) < 0 ){
+                return true;
+            }else if(k1.charAt(i)-k2.charAt(i) > 0){
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    public static boolean stringD2(String k1, String k2){
+        int lar =0;
+        if(k1.length() > k2.length()){
+            lar = k1.length();
+        }else{
+            lar = k2.length();
+        }
+        for (int i = 1 ; i < lar-1; i++){
+            if(k1.charAt(i)-k2.charAt(i) > 0 ){
+                return true;
+            }else if (k1.charAt(i)-k2.charAt(i) < 0){
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    
+    
+    public boolean evaluarS(String t1, String t2, String op){
+       
+        switch(op){
+            case ">":
+                 //System.out.println(t1+" "+t2);
+                return stringC1(t1,t2);
+            case "<":
+                return stringC2(t1,t2);
+            case ">=":
+                return stringD2(t1,t2);
+            case "<=":
+                return stringD1(t1,t2);
+            case "==":
+                return t1.equals(t2);
+            case "!=":
+                return !t1.equals(t2);
+        }
+        return false;
     }
     
     public int exist(LinkedList<HashMap<Object,Object>> tabla, Node nodo){
